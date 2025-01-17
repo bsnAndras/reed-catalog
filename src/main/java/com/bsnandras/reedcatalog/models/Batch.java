@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.sql.Date;
+import java.util.Set;
 
 @Data
 @Builder
@@ -18,7 +19,7 @@ public class Batch {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(name = "name",nullable = false)
     private String batchName;
 
     @Column(name = "date_of_purchase", nullable = false)
@@ -34,4 +35,8 @@ public class Batch {
     private int totalPrice;
 
     private String description;
+
+    @OneToMany
+    @JoinColumn(name = "batch_no",nullable = false)
+    private Set<Reed> reedList;
 }
