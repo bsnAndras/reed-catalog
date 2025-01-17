@@ -10,14 +10,14 @@ Tables:
 - actual balance
 ### Reed
 - id
-- batch no.
+- batch_no.
 - condition
 - sell price
-- order no.
+- order_no.
 ### Batch
 - id
 - batch name
-- date of buying
+- date of purchase
 - maker
 - quantity
 - total buy price
@@ -25,7 +25,7 @@ Tables:
 ### Order
 - id
 - date of purchase
-- customer
+- customer_id
 - total price
 - amount to pay
 ### Customer
