@@ -18,7 +18,7 @@ public class Log {
     @Column(nullable = false)
     private String event;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "order_no", referencedColumnName = "id")
     private Order order;
 
