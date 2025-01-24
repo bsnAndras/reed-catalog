@@ -10,7 +10,26 @@
 <body>
     <h1>Reed Catalog</h1>
     <h2>First log:</h2>
-    <p th:text="${firstLog}"></p>
+    <table>
+        <tr>
+            <th>Date-Time</th>
+            <th>Event</th>
+            <th>Order no.</th>
+            <!--            <th>Customer</th>-->
+            <th>Money exchange</th>
+            <th>Actual balance</th>
+        </tr>
+        <th:block th:each="log : ${logList}">
+            <tr th:object="${log}">
+                <td th:text="*{dateTime}"></td>
+                <td th:text="*{event}"></td>
+                <td th:text="*{order.getId()}"></td>
+                <!--            <td th:text="*{order.customer}"></td>-->
+                <td th:text="*{moneyExchange}"></td>
+                <td th:text="*{actualBalance}"></td>
+            </tr>
+        </th:block>
+    </table>
 </body>
 
 </html>
