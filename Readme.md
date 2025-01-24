@@ -6,7 +6,7 @@ Tables:
 - date-time
 - event
 - order no.
-- transaction
+- money-exchange
 - actual balance
 ### Reed
 - id

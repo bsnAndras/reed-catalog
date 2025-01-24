@@ -21,4 +21,9 @@ public class Log {
     @OneToOne
     @JoinColumn(name = "order_no", referencedColumnName = "id")
     private Order order;
+
+    private int moneyExchange;
+
+    @Column(nullable = false)
+    private int actualBalance;
 }
