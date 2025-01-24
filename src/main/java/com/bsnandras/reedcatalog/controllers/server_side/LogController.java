@@ -1,7 +1,7 @@
 package com.bsnandras.reedcatalog.controllers.server_side;
 
 import com.bsnandras.reedcatalog.models.Log;
-import com.bsnandras.reedcatalog.repositories.LogRepository;
+import com.bsnandras.reedcatalog.services.LogService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,13 +12,13 @@ import java.util.List;
 @Controller
 @RequiredArgsConstructor
 public class LogController {
-    private final LogRepository logRepository;
-    @GetMapping({"/","/log"})
-    public String getLog(Model model) {
-        List<Log> logList = logRepository.findAll();
+    private final LogService logService;
 
-        model.addAttribute("firstLog", logList.getFirst());
+    @GetMapping({"/", "/log"})
+    public String getLog(Model model) {
+        List<Log> logList = logService.showHistory();
+
         model.addAttribute("logList", logList);
-        return "index";
+        return "log";
     }
 }
