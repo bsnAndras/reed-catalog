@@ -14,12 +14,13 @@ import java.util.Set;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "batches")
 public class Batch {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name",nullable = false)
+    @Column(name = "name", nullable = false)
     private String batchName;
 
     @Column(name = "date_of_purchase", nullable = false)
@@ -36,7 +37,6 @@ public class Batch {
 
     private String description;
 
-    @OneToMany
-    @JoinColumn(name = "batch_no",nullable = false)
+    @OneToMany(mappedBy = "batch")
     private Set<Reed> reedList;
 }

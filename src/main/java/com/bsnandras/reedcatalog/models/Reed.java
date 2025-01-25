@@ -26,4 +26,8 @@ public class Reed {
     @ManyToOne
     @JoinColumn(name = "order_no")
     private Order order;
+
+    @ManyToOne
+    @JoinColumn(name = "batch_id", nullable = false)
+    private Batch batch;
 }
