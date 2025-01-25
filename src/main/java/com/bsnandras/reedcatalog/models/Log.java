@@ -22,8 +22,9 @@ public class Log {
     @JoinColumn(name = "order_no", referencedColumnName = "id")
     private Order order;
 
-    private int moneyExchange;
+    @Column(nullable = true)
+    private Integer moneyExchange;
 
     @Column(nullable = false)
-    private int actualBalance;
+    private Integer actualBalance;
 }
