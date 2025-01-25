@@ -29,7 +29,7 @@
                         <td th:text="*{dateTime}"></td>
                         <td th:text="*{event}"></td>
                         <td th:text="*{order}?*{order.id}:'-'"></td>
-                        <td th:if="*{order}"><a th:text="*{order.customer.name}" th:href="@{/customers}"></a></td>
+                        <td th:if="*{order}"><a th:text="*{order.customer.name}" th:href="|@{/customer}?id=*{order.customer.id}|"></a></td>
                         <td th:if="!*{order}">-</td>
                         <td th:text="*{moneyExchange}?*{moneyExchange}:'-'"></td>
                         <td th:text="*{actualBalance}"></td>

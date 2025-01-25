@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" th:href="@{/styles.css}">
+    <title>Reed Catalog</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1 th:text="${customer}"></h1>
+        <h2>Orders</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Date of purchase</th>
+                    <th>Total price</th>
+                    <th>Amount to pay</th>
+                </tr>
+            </thead>
+            <tbody>
+                <th:block th:each="order : ${orderList}">
+                    <tr th:object="${order}">
+                        <td th:text="*{id}"></td>
+                        <td th:text="*{dateOfPurchase}"></td>
+                        <td th:text="*{totalPrice}"></td>
+                        <td th:text="*{amountToPay}"></td>
+                    </tr>
+                </th:block>
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>
