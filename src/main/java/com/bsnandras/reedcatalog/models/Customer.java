@@ -10,6 +10,7 @@ import java.util.Set;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "customers")
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,7 +22,6 @@ public class Customer {
     @Column(nullable = false)
     private int balance;
 
-    @OneToMany
-    @JoinColumn(name = "customer_id", nullable = false)
+    @OneToMany(mappedBy = "customer")
     private Set<Order> orderList;
 }
