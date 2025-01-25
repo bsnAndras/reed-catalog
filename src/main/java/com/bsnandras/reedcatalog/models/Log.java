@@ -22,7 +22,7 @@ public class Log {
     @JoinColumn(name = "order_no", referencedColumnName = "id")
     private Order order;
 
-    @Column(nullable = true)
+    @Column
     private Integer moneyExchange;
 
     @Column(nullable = false)
