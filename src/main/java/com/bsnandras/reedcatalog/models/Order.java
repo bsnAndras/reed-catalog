@@ -29,8 +29,7 @@ public class Order {
     @Column(name = "amount_to_pay",nullable = false)
     private int amountToPay;
 
-    @OneToMany // todo add field to Reed
-    @JoinColumn(name = "order_no",nullable = false)
+    @OneToMany(mappedBy = "order")
     private Set<Reed> reedList;
 
     @OneToMany(mappedBy = "order")

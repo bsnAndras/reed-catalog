@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "reeds")
 public class Reed {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,4 +22,8 @@ public class Reed {
 
     @Column(name = "sell_price", nullable = false)
     private int sellPrice;
+
+    @ManyToOne
+    @JoinColumn(name = "order_no")
+    private Order order;
 }
