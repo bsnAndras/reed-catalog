@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface CustomerService {
     Customer getCustomer(Long id);
-    List<Order> showOrderHistory();
+    List<Order> showOrderHistory(Long customerId);
 }

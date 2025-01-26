@@ -17,11 +17,11 @@ public class CustomerController {
     private final CustomerService customerService;
     @GetMapping("/customer")
     public String getOrders(Model model, @RequestParam(name = "id") Long customerId) {
-        List<Order> orderList = customerService.showOrderHistory(); //TODO: modify listing to list all orders of current customer only
-        String customerName = customerService.getCustomer(customerId).getName();
+        List<Order> orderList = customerService.showOrderHistory(customerId); //TODO: modify listing to list all orders of current customer only
+        Customer customer = customerService.getCustomer(customerId);
 
         model.addAttribute("orderList", orderList);
-        model.addAttribute("customer", customerName);
+        model.addAttribute("customer", customer);
 
         return "customer";
     }
