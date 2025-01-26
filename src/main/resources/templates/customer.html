@@ -11,6 +11,7 @@
 <body>
     <div class="container">
         <h1 th:text="${customer.name}"></h1>
+        <section th:text="|Current balance: ${customer.balance}|"></section>
         <h2>Orders</h2>
         <table>
             <thead>
