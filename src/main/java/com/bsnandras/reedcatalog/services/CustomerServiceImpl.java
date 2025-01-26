@@ -25,4 +25,9 @@ public class CustomerServiceImpl implements CustomerService{
     public List<Order> showOrderHistory(Long customerId) {
         return orderRepository.findAllByCustomer(getCustomer(customerId));
     }
+
+    @Override
+    public List<Customer> showAllCustomers() {
+        return customerRepository.findAll();
+    }
 }

@@ -25,4 +25,13 @@ public class CustomerController {
 
         return "customer";
     }
+
+    @GetMapping("/customer-list")
+    public String getAllCustomers(Model model) {
+        List<Customer> customerList = customerService.showAllCustomers();
+
+        model.addAttribute("customerList", customerList);
+
+        return "customer-list";
+    }
 }
