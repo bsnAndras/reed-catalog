@@ -17,7 +17,7 @@ public class CustomerController {
     private final CustomerService customerService;
     @GetMapping("/customer")
     public String getOrders(Model model, @RequestParam(name = "id") Long customerId) {
-        List<Order> orderList = customerService.showOrderHistory(customerId); //TODO: modify listing to list all orders of current customer only
+        List<Order> orderList = customerService.showOrderHistory(customerId);
         Customer customer = customerService.getCustomer(customerId);
 
         model.addAttribute("orderList", orderList);

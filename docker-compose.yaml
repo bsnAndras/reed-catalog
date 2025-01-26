@@ -1,0 +1,9 @@
+services:
+  mysql-dev:
+    container_name: mysql_dev
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: reed_catalog
+    ports:
+      - "3307:3306"

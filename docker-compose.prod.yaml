@@ -1,0 +1,14 @@
+services:
+  mysql-production:
+    container_name: mysql_production
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: reed_catalog
+    ports:
+      - "3310:3306"
+    volumes:
+      - reed_catalog_production:/var/lib/mysql
+
+volumes:
+  reed_catalog_production:
