@@ -6,7 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.Set;
 
 @Data
@@ -21,7 +21,7 @@ public class Order {
     private Long id;
 
     @Column(name = "date_of_purchase", nullable = false)
-    private Date dateOfPurchase;
+    private Date dateOfPurchase = new Date();
 
     @Column(nullable = false)
     private int totalPrice;

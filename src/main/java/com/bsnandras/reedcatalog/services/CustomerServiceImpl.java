@@ -12,7 +12,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class CustomerServiceImpl implements CustomerService{
+public class CustomerServiceImpl implements CustomerService {
 
     private final CustomerRepository customerRepository;
     private final OrderRepository orderRepository;
@@ -40,5 +40,22 @@ public class CustomerServiceImpl implements CustomerService{
                 .balance(customer.getBalance())
                 .orderList(getOrderHistory(customerId))
                 .build();
+    }
+
+    /**
+     * Checks if the customer already has some money on the account. If so, first pays the bill from there, and updates the Order accordingly
+     * @param customerId the customer's ID
+     * @param newOrder the order, that is placed currently
+     * @return the updated Order
+     */
+    @Override
+    public Order newOrder(Long customerId, Order newOrder) {
+        Customer customer = getCustomer(customerId);
+        int prevBalance = customer.getBalance();
+        int amountToPay = newOrder.getAmountToPay();
+        customer.setBalance(prevBalance - amountToPay);
+        amountToPay -= Math.max(prevBalance,0);
+        newOrder.setAmountToPay(amountToPay);
+        return newOrder;
     }
 }

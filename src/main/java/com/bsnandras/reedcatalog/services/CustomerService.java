@@ -14,4 +14,6 @@ public interface CustomerService {
     List<Customer> showAllCustomers();
 
     CustomerPageResponseDto getCustomerPageData(Long customerId);
+
+    Order newOrder(Long customerId, Order newOrder);
 }
