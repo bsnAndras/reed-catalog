@@ -24,7 +24,7 @@
                 <th:block th:each="customer : ${customerList}">
                     <tr th:object="${customer}">
                         <td th:text="*{id}"></td>
-                        <td><a th:text="*{name}" th:href="|@{/customer}?id=*{id}|"></a></td>
+                        <td><a th:text="*{name}" th:href="|@{/customer/profile}?id=*{id}|"></a></td>
                         <td th:text="*{balance}"></td>
                     </tr>
                 </th:block>

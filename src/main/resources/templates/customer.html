@@ -24,7 +24,7 @@
                 </tr>
             </thead>
             <tbody>
-                <th:block th:each="order : ${orderList}">
+                <th:block th:each="order : ${customer.orderList}">
                     <tr th:object="${order}">
                         <td th:text="*{id}"></td>
                         <td th:text="*{dateOfPurchase}"></td>

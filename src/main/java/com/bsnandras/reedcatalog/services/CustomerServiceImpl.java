@@ -1,5 +1,6 @@
 package com.bsnandras.reedcatalog.services;
 
+import com.bsnandras.reedcatalog.dtos.CustomerPageResponseDto;
 import com.bsnandras.reedcatalog.models.Customer;
 import com.bsnandras.reedcatalog.models.Order;
 import com.bsnandras.reedcatalog.repositories.CustomerRepository;
@@ -22,12 +23,22 @@ public class CustomerServiceImpl implements CustomerService{
     }
 
     @Override
-    public List<Order> showOrderHistory(Long customerId) {
+    public List<Order> getOrderHistory(Long customerId) {
         return orderRepository.findAllByCustomer(getCustomer(customerId));
     }
 
     @Override
     public List<Customer> showAllCustomers() {
         return customerRepository.findAll();
+    }
+
+    @Override
+    public CustomerPageResponseDto getCustomerPageData(Long customerId) {
+        Customer customer = getCustomer(customerId);
+        return CustomerPageResponseDto.builder()
+                .name(customer.getName())
+                .balance(customer.getBalance())
+                .orderList(getOrderHistory(customerId))
+                .build();
     }
 }
