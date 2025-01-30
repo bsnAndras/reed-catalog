@@ -44,8 +44,9 @@ public class CustomerServiceImpl implements CustomerService {
 
     /**
      * Checks if the customer already has some money on the account. If so, first pays the bill from there, and updates the Order accordingly
+     *
      * @param customerId the customer's ID
-     * @param newOrder the order, that is placed currently
+     * @param newOrder   the order, that is placed currently
      * @return the updated Order
      */
     @Override
@@ -54,7 +55,9 @@ public class CustomerServiceImpl implements CustomerService {
         int prevBalance = customer.getBalance();
         int amountToPay = newOrder.getAmountToPay();
         customer.setBalance(prevBalance - amountToPay);
-        amountToPay -= Math.max(prevBalance,0);
+        amountToPay -= Math.max(prevBalance, 0);
+        if (amountToPay < 0)
+            amountToPay = 0;
         newOrder.setAmountToPay(amountToPay);
         return newOrder;
     }
