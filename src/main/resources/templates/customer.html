@@ -10,7 +10,10 @@
 
 <body>
     <div class="container">
-        <a th:href="@{/}">Back to Home</a>
+        <div class="header-container">
+            <a class="button-primary" th:href="@{/}">Back to Home</a>
+            <p th:text="|Customer ID: ${customer.id()}|"></p>
+        </div>
         <h1 th:text="${customer.name}"></h1>
         <section th:text="|Current balance: ${customer.balance}|"></section>
         <h2>Orders</h2>

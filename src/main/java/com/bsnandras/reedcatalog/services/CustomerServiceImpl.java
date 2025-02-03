@@ -36,6 +36,7 @@ public class CustomerServiceImpl implements CustomerService {
     public CustomerPageResponseDto getCustomerPageData(Long customerId) {
         Customer customer = getCustomer(customerId);
         return CustomerPageResponseDto.builder()
+                .id(customerId)
                 .name(customer.getName())
                 .balance(customer.getBalance())
                 .orderList(getOrderHistory(customerId))
