@@ -15,5 +15,5 @@ public interface CustomerService {
 
     CustomerPageResponseDto getCustomerPageData(Long customerId);
 
-    Order newOrder(Long customerId, Order newOrder);
+    int setBalance(Long customerId, int newBalance);
 }

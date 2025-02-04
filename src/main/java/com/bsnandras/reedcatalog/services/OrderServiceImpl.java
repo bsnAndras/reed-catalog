@@ -35,12 +35,28 @@ public class OrderServiceImpl implements OrderService {
                 .amountToPay(requestDto.totalPrice())
                 .build();
 
-        newOrder = customerService.newOrder(requestDto.customerId(),newOrder);
-
-        orderRepository.save(newOrder);
         //Todo: implement Reeds into this process later.
+
+        newOrder = payOrderFromCustomerBalance(newOrder);
+
         logService.newLog(newOrder);
 
         return new NewOrderResponseDto("Order placed");
+    }
+
+    public Order payOrderFromCustomerBalance(Order order) {
+        Customer customer = order.getCustomer();
+        int amountToPay = order.getAmountToPay();
+        int prevBalance = customer.getBalance();
+
+        customerService.setBalance(customer.getId(), prevBalance - amountToPay);
+
+        amountToPay -= Math.max(prevBalance, 0);
+        if (amountToPay < 0)
+            amountToPay = 0;
+        order.setAmountToPay(amountToPay);
+
+        orderRepository.save(order);
+        return order;
     }
 }
