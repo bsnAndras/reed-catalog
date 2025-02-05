@@ -39,6 +39,7 @@ public class OrderServiceImpl implements OrderService {
         //Todo: implement Reeds into this process later.
 
         newOrder = payOrderFromCustomerBalance(newOrder);
+        orderRepository.save(newOrder);
         customerService.placeDebt(customer.getId(),newOrder);
 
         logService.newOrderLog(newOrder); // TODO: place this line to controller
@@ -73,7 +74,6 @@ public class OrderServiceImpl implements OrderService {
 
         order.setAmountToPay(customerDebt - amountToBePayed);
 
-        orderRepository.save(order);
         return order;
     }
 }
