@@ -36,4 +36,18 @@ public class LogServiceImpl implements LogService {
                 .build();
         return save(newLog);
     }
+
+    @Override
+    public Log newOrderLog(PaymentResponseDto response) {
+        Log lastLog = showHistory().getFirst();
+        int paymentAmount = response.moneyPaid();
+        Log newLog = Log.builder()
+                .dateTime(new Date())
+                .event("Order updated after payment")
+                .order(response.updatedOrder())
+                .moneyExchange(paymentAmount)
+                .actualBalance(lastLog.getActualBalance() + paymentAmount)
+                .build();
+        return save(newLog);
+    }
 }
