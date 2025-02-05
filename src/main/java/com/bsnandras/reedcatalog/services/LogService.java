@@ -10,5 +10,7 @@ public interface LogService {
 
     List<Log> showHistory();
 
-    Log newLog(Order newOrder);
+    Log newOrderLog(Order newOrder);
+
+    Log newOrderLog(PaymentResponseDto response);
 }

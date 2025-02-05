@@ -20,6 +20,7 @@ public class OrderServiceImpl implements OrderService {
     /**
      * Place a new order without upfront payment (TODO: implement order payment next),
      * and updates the customer's account balance and the order's amountToPay accordingly.
+     *
      * @param requestDto the new order request
      * @return a message whether the order registration was successful
      */
@@ -38,23 +39,39 @@ public class OrderServiceImpl implements OrderService {
         //Todo: implement Reeds into this process later.
 
         newOrder = payOrderFromCustomerBalance(newOrder);
+        customerService.placeDebt(customer.getId(),newOrder);
 
-        logService.newLog(newOrder);
+        logService.newOrderLog(newOrder); // TODO: place this line to controller
 
         return new NewOrderResponseDto("Order placed");
     }
 
+    /**
+     * The method for paying an order from customer's excess money from his/her account
+     *
+     * @param order The Order you wish to pay from Customer balance
+     * @return the Order after paying from the customer balance
+     */
     public Order payOrderFromCustomerBalance(Order order) {
         Customer customer = order.getCustomer();
-        int amountToPay = order.getAmountToPay();
-        int prevBalance = customer.getBalance();
+        int currentBalance = customer.getBalance();
+        int customerDebt = order.getAmountToPay();
 
-        customerService.setBalance(customer.getId(), prevBalance - amountToPay);
+        int amountToBePayed;
 
-        amountToPay -= Math.max(prevBalance, 0);
-        if (amountToPay < 0)
-            amountToPay = 0;
-        order.setAmountToPay(amountToPay);
+        if ((currentBalance <= 0 && customerDebt >= 0) || customerDebt == 0) {
+            return order;
+        }
+        if (customerDebt < 0) {
+            amountToBePayed = customerDebt;
+        } else {
+            amountToBePayed = Math.min(currentBalance, customerDebt);
+        }
+
+        customerService.setBalance(customer.getId(),
+                currentBalance - amountToBePayed);
+
+        order.setAmountToPay(customerDebt - amountToBePayed);
 
         orderRepository.save(order);
         return order;

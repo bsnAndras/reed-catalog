@@ -1,5 +1,6 @@
 package com.bsnandras.reedcatalog.services;
 
+import com.bsnandras.reedcatalog.dtos.paymentReceived.PaymentResponseDto;
 import com.bsnandras.reedcatalog.models.Log;
 import com.bsnandras.reedcatalog.models.Order;
 import com.bsnandras.reedcatalog.repositories.LogRepository;
@@ -25,7 +26,7 @@ public class LogServiceImpl implements LogService {
     }
 
     @Override
-    public Log newLog(Order newOrder) {
+    public Log newOrderLog(Order newOrder) {
         Log lastLog = showHistory().getFirst();
         Log newLog = Log.builder()
                 .dateTime(new Date())

@@ -50,4 +50,13 @@ public class CustomerServiceImpl implements CustomerService {
         customerRepository.save(customer);
         return newBalance;
     }
+
+    @Override
+    public int placeDebt(Long customerId, Order order) {
+        Customer customer = getCustomer(customerId);
+        int amountToPay = order.getAmountToPay();
+        customer.setBalance(customer.getBalance() - amountToPay);
+        customerRepository.save(customer);
+        return customer.getBalance();
+    }
 }

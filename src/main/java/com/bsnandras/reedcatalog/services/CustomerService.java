@@ -16,4 +16,12 @@ public interface CustomerService {
     CustomerPageResponseDto getCustomerPageData(Long customerId);
 
     int setBalance(Long customerId, int newBalance);
+
+    /**
+     * Method for placing debt on customer account
+     * @param customerId customer's id
+     * @param order the order to be paid, when money is available
+     * @return the new account balance of the customer
+     */
+    int placeDebt(Long customerId, Order order);
 }
