@@ -7,3 +7,25 @@ services:
       MYSQL_DATABASE: reed_catalog
     ports:
       - "3307:3306"
+    networks:
+      - reed_catalog_dev_network
+
+  reed-catalog-app:
+    container_name: reed_catalog_app
+    depends_on:
+      - mysql-dev
+    env_file:
+      - .env.dev
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql_dev:3306/reed_catalog
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8090:8080"
+    networks:
+      - reed_catalog_dev_network
+
+networks:
+  reed_catalog_dev_network:
+    name: reed_catalog_dev_network
