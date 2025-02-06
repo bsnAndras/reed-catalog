@@ -10,8 +10,8 @@ services:
     networks:
       - reed_catalog_dev_network
 
-  reed-catalog-app:
-    container_name: reed_catalog_app
+  reed-catalog-app-dev:
+    container_name: reed_catalog_app_dev
     depends_on:
       - mysql-dev
     env_file:

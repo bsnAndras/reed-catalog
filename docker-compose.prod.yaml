@@ -9,6 +9,28 @@ services:
       - "3310:3306"
     volumes:
       - reed_catalog_production:/var/lib/mysql
+    networks:
+      - reed_catalog_prod_network
+
+  reed-catalog-app:
+    container_name: reed_catalog_app_production
+    depends_on:
+      - mysql-production
+    env_file:
+      - .env.production
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql_production:3306/reed_catalog
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8091:8081"
+    networks:
+      - reed_catalog_prod_network
+
+networks:
+  reed_catalog_prod_network:
+    name: reed-catalog_production-network
 
 volumes:
   reed_catalog_production:
