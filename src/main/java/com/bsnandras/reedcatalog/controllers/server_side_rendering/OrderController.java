@@ -8,10 +8,8 @@ import com.bsnandras.reedcatalog.services.OrderService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 
 @Controller
@@ -22,7 +20,7 @@ public class OrderController {
     private final LogService logService;
 
     @PostMapping("/new-order")
-    public String placeNewCustomerOrder(@RequestBody NewOrderRequestDto requestDto) {
+    public String placeNewCustomerOrder(@ModelAttribute NewOrderRequestDto requestDto, Model model) {
         System.out.println(orderService.placeNewOrder(requestDto).message());
         return "redirect:/log";
     }

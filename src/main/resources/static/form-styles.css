@@ -1,0 +1,45 @@
+body {
+    background-color: #b4b4b4;
+}
+
+.container {
+    max-width: 400px;
+    margin: 50px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-container {
+    margin: auto;
+}
+
+.input-group {
+    margin: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.input-group > div {
+    margin: 0;
+    padding: 0;
+}
+
+select#customer{
+    min-width: 100px;
+}
+
+input#quantity {
+    width: 2em;
+}
+
+input#price {
+    width: 5em;
+}
+
+.button-container {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}

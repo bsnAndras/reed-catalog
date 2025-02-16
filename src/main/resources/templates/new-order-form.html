@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" th:href="@{/styles.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/form-styles.css}">
+    <title>Reed Catalog</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="form-container">
+            <h1>Placing new order</h1>
+            <form th:method="'post'"  th:object="${requestDto}" th:action="@{/order/new-order}">
+                <div class="input-group">
+                    <label for="customer">Customer:</label>
+                    <select th:field="*{customerId}" name="customerId" id="customer">
+                        <option th:text="${customer.name}" th:value="${customer.id}"></option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="price">Total Price:</label>
+                    <div>
+                        <input type="number" id="price" th:field="*{totalPrice}" required>
+                        <span th:text="Ft"></span>
+                    </div>
+                </div>
+                <div class="button-container">
+                    <button type="submit" class="button-primary">Place Order</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

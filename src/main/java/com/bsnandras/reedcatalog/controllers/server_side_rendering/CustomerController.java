@@ -1,5 +1,6 @@
 package com.bsnandras.reedcatalog.controllers.server_side_rendering;
 
+import com.bsnandras.reedcatalog.dtos.newOrder.NewOrderRequestDto;
 import com.bsnandras.reedcatalog.models.Customer;
 import com.bsnandras.reedcatalog.services.CustomerService;
 import lombok.RequiredArgsConstructor;
@@ -31,5 +32,13 @@ public class CustomerController {
         model.addAttribute("customerList", customerList);
 
         return "customer-list";
+    }
+
+    @GetMapping("/new-order")
+    public String renderPlaceNewOrderForm(Model model, @RequestParam(name = "id") Long customerId){
+        model.addAttribute("customer", customerService.getCustomer(customerId));
+        model.addAttribute("requestDto", new NewOrderRequestDto(customerId,0));
+
+        return "new-order-form";
     }
 }

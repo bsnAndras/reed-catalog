@@ -16,29 +16,12 @@
         </div>
         <h1 th:text="${customer.name}"></h1>
         <section th:text="|Current balance: ${customer.balance}|"></section>
-        <h2>Orders</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Date of purchase</th>
-                    <th>Total price</th>
-                    <th>Amount to pay</th>
-                </tr>
-            </thead>
-            <tbody>
-                <th:block th:each="order : ${customer.orderList}">
-                    <tr th:object="${order}">
-                        <td th:text="*{id}"></td>
-                        <td th:text="*{dateOfPurchase}"></td>
-                        <td th:text="*{totalPrice}"></td>
-                        <td th:text="*{amountToPay}"></td>
-                    </tr>
-                </th:block>
-            </tbody>
-        </table>
         <div class="table-container">
+            <div class="header-container">
                 <h2>Orders</h2>
+                <a class="button-primary" th:href="|@{/customer/new-order}?id=${customer.id()}|">Place new order</a>
+
+            </div>
             <table>
                 <thead>
                     <tr>
