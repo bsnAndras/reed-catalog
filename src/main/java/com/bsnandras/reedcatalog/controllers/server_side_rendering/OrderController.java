@@ -1,4 +1,4 @@
-package com.bsnandras.reedcatalog.controllers.server_side;
+package com.bsnandras.reedcatalog.controllers.server_side_rendering;
 
 import com.bsnandras.reedcatalog.dtos.newOrder.NewOrderRequestDto;
 import com.bsnandras.reedcatalog.dtos.paymentReceived.PaymentRequestDto;
