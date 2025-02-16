@@ -10,26 +10,28 @@
 
 <body>
     <div class="container">
-        <a class="button-primary" th:href="@{/}">Back to Home</a>
-        <h1>List of all customers</h1>
-        <table>
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>name</th>
-                    <th>Balance</th>
-                </tr>
-            </thead>
-            <tbody>
-                <th:block th:each="customer : ${customerList}">
-                    <tr th:object="${customer}">
-                        <td th:text="*{id}"></td>
-                        <td><a th:text="*{name}" th:href="|@{/customer/profile}?id=*{id}|"></a></td>
-                        <td th:text="*{balance}"></td>
+        <a class="button-secondary" th:href="@{/}">Back to Home</a>
+        <div class="table-container">
+            <h1>List of all customers</h1>
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>name</th>
+                        <th>Balance</th>
                     </tr>
-                </th:block>
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    <th:block th:each="customer : ${customerList}">
+                        <tr th:object="${customer}">
+                            <td th:text="*{id}"></td>
+                            <td><a th:text="*{name}" th:href="|@{/customer/profile}?id=*{id}|"></a></td>
+                            <td th:text="*{balance}"></td>
+                        </tr>
+                    </th:block>
+                </tbody>
+            </table>
+        </div>
     </div>
 </body>
 

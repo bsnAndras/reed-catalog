@@ -11,33 +11,36 @@
 <body>
     <div class="container">
         <h1>Reed Catalog</h1>
-        <section><a class="button-primary" th:href="@{/customer/customer-list}">List of Customers</a></section>
-        <h2>Log:</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Date-Time</th>
-                    <th>Event</th>
-                    <th>Order no.</th>
-                    <th>Customer</th>
-                    <th>Money exchange</th>
-                    <th>Actual balance</th>
-                </tr>
-            </thead>
-            <tbody>
-                <th:block th:each="log : ${logList}">
-                    <tr th:object="${log}">
-                        <td th:text="*{dateTime}"></td>
-                        <td th:text="*{event}"></td>
-                        <td th:text="*{order}?*{order.id}:'-'"></td>
-                        <td th:if="*{order}"><a th:text="*{order.customer.name}" th:href="|@{/customer/profile}?id=*{order.customer.id}|"></a></td>
-                        <td th:if="!*{order}">-</td>
-                        <td th:text="*{moneyExchange}?*{moneyExchange}:'-'"></td>
-                        <td th:text="*{actualBalance}"></td>
+        <section><a class="button-secondary" th:href="@{/customer/customer-list}">List of Customers</a></section>
+        <div class="table-container">
+            <h2>Log:</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date-Time</th>
+                        <th>Event</th>
+                        <th>Order no.</th>
+                        <th>Customer</th>
+                        <th>Money exchange</th>
+                        <th>Actual balance</th>
                     </tr>
-                </th:block>
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    <th:block th:each="log : ${logList}">
+                        <tr th:object="${log}">
+                            <td th:text="*{dateTime}"></td>
+                            <td th:text="*{event}"></td>
+                            <td th:text="*{order}?*{order.id}:'-'"></td>
+                            <td th:if="*{order}"><a th:text="*{order.customer.name}"
+                                    th:href="|@{/customer/profile}?id=*{order.customer.id}|"></a></td>
+                            <td th:if="!*{order}">-</td>
+                            <td th:text="*{moneyExchange}?*{moneyExchange}:'-'"></td>
+                            <td th:text="*{actualBalance}"></td>
+                        </tr>
+                    </th:block>
+                </tbody>
+            </table>
+        </div>
     </div>
 </body>
 

@@ -11,7 +11,7 @@
 <body>
     <div class="container">
         <div class="header-container">
-            <a class="button-primary" th:href="@{/}">Back to Home</a>
+            <a class="button-secondary" th:href="@{/}">Back to Home</a>
             <p th:text="|Customer ID: ${customer.id()}|"></p>
         </div>
         <h1 th:text="${customer.name}"></h1>
@@ -37,6 +37,29 @@
                 </th:block>
             </tbody>
         </table>
+        <div class="table-container">
+                <h2>Orders</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Date of purchase</th>
+                        <th>Total price</th>
+                        <th>Amount to pay</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <th:block th:each="order : ${customer.orderList}">
+                        <tr th:object="${order}">
+                            <td th:text="*{id}"></td>
+                            <td th:text="*{dateOfPurchase}"></td>
+                            <td th:text="*{totalPrice}"></td>
+                            <td th:text="*{amountToPay}"></td>
+                        </tr>
+                    </th:block>
+                </tbody>
+            </table>
+        </div>
     </div>
 </body>
 
