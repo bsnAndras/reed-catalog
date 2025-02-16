@@ -9,6 +9,7 @@ import com.bsnandras.reedcatalog.models.Customer;
 import com.bsnandras.reedcatalog.models.Order;
 import com.bsnandras.reedcatalog.repositories.OrderRepository;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -19,9 +20,10 @@ public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
     private final CustomerService customerService;
     private final LogService logService;
+    private final ModelMapper modelMapper = new ModelMapper();
 
     /**
-     * Place a new order without upfront payment (TODO: implement order payment next),
+     * Place a new order without upfront payment,
      * and updates the customer's account balance and the order's amountToPay accordingly.
      *
      * @param requestDto the new order request
@@ -31,7 +33,8 @@ public class OrderServiceImpl implements OrderService {
     public NewOrderResponseDto placeNewOrder(NewOrderRequestDto requestDto) {
         Customer customer = customerService.getCustomer(requestDto.customerId());
 
-        // Place new order (Reeds will be empty Reed objects for now.)
+        // Place new order (Reeds will not be added for now.)
+        //Todo: implement Reeds into this process later.
         Order newOrder = Order.builder()
                 .dateOfPurchase(new Date())
                 .customer(customer)
@@ -39,15 +42,14 @@ public class OrderServiceImpl implements OrderService {
                 .amountToPay(requestDto.totalPrice())
                 .build();
 
-        //Todo: implement Reeds into this process later.
-
         newOrder = payOrderFromCustomerBalance(newOrder);
         orderRepository.save(newOrder);
         customerService.placeDebt(customer.getId(), newOrder);
 
         logService.newOrderLog(newOrder); // TODO: place this line to controller
 
-        return new NewOrderResponseDto("Order placed");
+        return new NewOrderResponseDto("Order placed",
+                modelMapper.map(newOrder, NewOrderResponseDto.OrderDTO.class));
     }
 
     /**
