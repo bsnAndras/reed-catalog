@@ -7,7 +7,6 @@ import com.bsnandras.reedcatalog.repositories.CustomerRepository;
 import com.bsnandras.reedcatalog.repositories.OrderRepository;
 import com.bsnandras.reedcatalog.services.CustomerServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -86,6 +85,7 @@ class CustomerServiceTest {
         //Then
         verify(customerRepository).findAll();
     }
+
     @Test
     void getCustomerPageData() {
         //Given
@@ -109,9 +109,9 @@ class CustomerServiceTest {
         //When
         CustomerPageResponseDto customerPageDto = customerService.getCustomerPageData(customer.getId());
         //Then
-        verify(customerRepository,times(2)).findById(customer.getId());
+        verify(customerRepository, times(2)).findById(customer.getId());
         verify(orderRepository).findAllByCustomer(any());
-        assertEquals(dto.id(),customerPageDto.id());
+        assertEquals(dto.id(), customerPageDto.id());
         assertEquals(dto.name(), customerPageDto.name());
         assertEquals(dto.orderList(), customerPageDto.orderList());
         assertEquals(-totalBalanceOfAllOrders, customerPageDto.balance());
@@ -133,7 +133,7 @@ class CustomerServiceTest {
 
         //Then
         verify(customerRepository).findById(customer.getId());
-        verify(customerRepository,times(2)).save(captor.capture());
+        verify(customerRepository, times(2)).save(captor.capture());
 
         assertEquals(customer.getId(), captor.getValue().getId());
         assertEquals(newBalance, captor.getValue().getBalance());
@@ -141,8 +141,36 @@ class CustomerServiceTest {
     }
 
     @Test
-    @Disabled
+    @DisplayName("Should place 1000 debt to 0 balanced customer - HAPPY")
     void placeDebt() {
+        //Set up
+        customer.setBalance(0);
+        Order newOrder = Order.builder()
+                .id(1L)
+                .totalPrice(1000)
+                .amountToPay(1000)
+                .build();
 
+        customer.setOrderList(new HashSet<>(List.of(
+                Order.builder()
+                        .id(1L)
+                        .totalPrice(3000)
+                        .amountToPay(0)
+                        .build(),
+                newOrder
+        )));
+        customerRepository.save(customer);
+
+        //When
+        when(customerRepository.findById(any())).thenReturn(Optional.of(customer));
+        customerService.placeDebt(customer.getId(), newOrder);
+
+        //Then
+        verify(customerRepository).findById(customer.getId());
+        verify(customerRepository, times(3)).save(captor.capture());
+
+        assertEquals(customer.getId(), captor.getValue().getId());
+        //TODO: later modify this to accomodate the separation of customer balance in DB from the Orders total debt
+        assertEquals(-customer.getOrderList().stream().mapToInt(Order::getAmountToPay).sum(), captor.getValue().getBalance());
     }
 }
