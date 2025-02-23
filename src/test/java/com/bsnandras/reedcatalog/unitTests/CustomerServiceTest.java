@@ -68,14 +68,24 @@ class CustomerServiceTest {
                                 .amountToPay(2000)
                                 .build()
                 ));
-        when(customerRepository.findById(any())).thenReturn(Optional.of(customer));
-        when(orderRepository.findAllByCustomer(customer))
-                .thenReturn(customer
-                        .getOrderList()
-                        .stream()
-                        .toList());
+        customerRepository.save(customer);
     }
 
+    @Test
+    @DisplayName("Should get Customer - HAPPY")
+    void shouldGetCustomer() {
+        when(customerRepository.findById(any())).thenReturn(Optional.of(customer));
+        assertEquals(customer, customerService.getCustomer(1L));
+        verify(customerRepository).findById(1L);
+    }
+
+    @Test
+    void shouldGetAllCustomers() {
+        //When
+        customerService.showAllCustomers();
+        //Then
+        verify(customerRepository).findAll();
+    }
     @Test
     void getCustomerPageData() {
         //Given
@@ -89,17 +99,25 @@ class CustomerServiceTest {
         for (Order order : customer.getOrderList()) {
             totalBalanceOfAllOrders += order.getAmountToPay();
         }
+        //Mocks
+        when(customerRepository.findById(any())).thenReturn(Optional.of(customer));
+        when(orderRepository.findAllByCustomer(customer))
+                .thenReturn(customer
+                        .getOrderList()
+                        .stream()
+                        .toList());
         //When
         CustomerPageResponseDto customerPageDto = customerService.getCustomerPageData(customer.getId());
         //Then
         verify(customerRepository,times(2)).findById(customer.getId());
+        verify(orderRepository).findAllByCustomer(any());
         assertEquals(dto.id(),customerPageDto.id());
         assertEquals(dto.name(), customerPageDto.name());
+        assertEquals(dto.orderList(), customerPageDto.orderList());
         assertEquals(-totalBalanceOfAllOrders, customerPageDto.balance());
         //TODO: should update the balance calculation later. The customer balance should be independent from the orders' balance.
         // The orders debt and the account balance should be summed together only on display, not in database.
 
-        assertEquals(dto.orderList(), customerPageDto.orderList());
     }
 
     @Test()
@@ -110,19 +128,21 @@ class CustomerServiceTest {
         int newBalance = initialBalance + (int) (Math.random() * 100) + 1;
 
         //When
+        when(customerRepository.findById(any())).thenReturn(Optional.of(customer));
         customerService.setBalance(customer.getId(), newBalance);
 
         //Then
         verify(customerRepository).findById(customer.getId());
-        verify(customerRepository).save(captor.capture());
+        verify(customerRepository,times(2)).save(captor.capture());
 
         assertEquals(customer.getId(), captor.getValue().getId());
         assertEquals(newBalance, captor.getValue().getBalance());
         assertNotEquals(initialBalance, captor.getValue().getBalance());
     }
 
-    @Disabled
     @Test
+    @Disabled
     void placeDebt() {
+
     }
 }
