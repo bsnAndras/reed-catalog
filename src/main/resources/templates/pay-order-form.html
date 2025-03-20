@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" th:href="@{/styles.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/form-styles.css}">
+    <title>Reed Catalog</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Paying order</h1>
+        <div class="form-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th colspan="5">Order Details</th>
+                    </tr>
+                </thead>
+                <tr>
+                    <th>#</th>
+                    <th>Date of purchase</th>
+                    <th>Total Price</th>
+                    <th>Amount to pay</th>
+                    <th>Customer name</th>
+                </tr>
+                <tr th:object="${order}">
+                    <td th:text="*{id()}"></td>
+                    <td th:text="*{#dates.format(dateOfPurchase(), 'yyyy-MM-dd')}"></td>
+                    <td th:text="*{totalPrice()}"></td>
+                    <td th:text="*{amountToPay()}"></td>
+                    <td th:text="*{customerName()}"></td>
+                </tr>
+            </table>
+            <form th:method="'patch'"  th:object="${requestDto}" th:action="@{/order/new-payment}">
+<!--                <div class="input-group">-->
+<!--                    <label for="date">Date of transaction:</label>-->
+<!--                    <input th:field="*{transactionDate()}" type="date" name="date" id="date">-->
+<!--                </div>-->
+<!--                <div class="input-group">-->
+<!--                    <label for="paid">Paid:</label>-->
+<!--                    <div>-->
+<!--                        <input type="number" id="paid" th:field="*{paymentAmount()}" required>-->
+<!--                        <span th:text="Ft"></span>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="input-group">-->
+<!--                    <label for="note">Note:</label>-->
+<!--                    <div>-->
+<!--                        <input type="text" id="note" th:field="*{note()}">-->
+<!--                    </div>-->
+<!--                </div>-->
+                <div class="button-container">
+                    <button type="submit" class="button-primary">Confirm Payment</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

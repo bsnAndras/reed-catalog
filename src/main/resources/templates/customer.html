@@ -28,7 +28,7 @@
                         <th>#</th>
                         <th>Date of purchase</th>
                         <th>Total price</th>
-                        <th>Amount to pay</th>
+                        <th colspan="2">Amount to pay</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -38,6 +38,7 @@
                             <td th:text="*{dateOfPurchase}"></td>
                             <td th:text="*{totalPrice}"></td>
                             <td th:text="*{amountToPay}"></td>
+                            <td><a th:if="*{amountToPay}" class="button-primary" th:href="|@{/order/new-payment}?id=*{id}|">Pay Order</a></td>
                         </tr>
                     </th:block>
                 </tbody>
