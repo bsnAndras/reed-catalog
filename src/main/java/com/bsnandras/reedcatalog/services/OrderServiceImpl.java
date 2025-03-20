@@ -1,5 +1,6 @@
 package com.bsnandras.reedcatalog.services;
 
+import com.bsnandras.reedcatalog.dtos.OrderInfoDto;
 import com.bsnandras.reedcatalog.dtos.newOrder.NewOrderRequestDto;
 import com.bsnandras.reedcatalog.dtos.newOrder.NewOrderResponseDto;
 import com.bsnandras.reedcatalog.dtos.paymentReceived.PaymentRequestDto;
@@ -50,6 +51,21 @@ public class OrderServiceImpl implements OrderService {
 
         return new NewOrderResponseDto("Order placed",
                 modelMapper.map(newOrder, NewOrderResponseDto.OrderDTO.class));
+    }
+
+    @Override
+    public OrderInfoDto getOrderByOrderId(Long orderId) {
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(()-> new OrderNotFoundException("No order found under this id: " + orderId));
+        String customerName = order.getCustomer().getName();
+
+        return new OrderInfoDto(
+                orderId,
+                order.getDateOfPurchase(),
+                order.getTotalPrice(),
+                order.getAmountToPay(),
+                customerName
+        );
     }
 
     /**
