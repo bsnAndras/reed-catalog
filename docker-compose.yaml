@@ -1,3 +1,4 @@
+name: reed-catalog-dev
 services:
   mysql-dev:
     container_name: mysql_dev
@@ -5,6 +6,11 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: reed_catalog
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
+      interval: 10s
+      timeout: 5s
+      retries: 3
     ports:
       - "3307:3306"
     networks:
@@ -13,7 +19,9 @@ services:
   reed-catalog-app-dev:
     container_name: reed_catalog_app_dev
     depends_on:
-      - mysql-dev
+      mysql-dev:
+        condition: service_healthy
+        restart: true
     env_file:
       - .env.dev
     environment:
