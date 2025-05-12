@@ -11,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
+
 
 @Controller
 @RequiredArgsConstructor
@@ -25,8 +27,16 @@ public class OrderController {
         return "redirect:/log";
     }
 
-    @PatchMapping("/new-payment")
-    public String paymentReceived(@RequestBody @Valid PaymentRequestDto requestDto) {
+    @GetMapping("/new-payment")
+    public String renderNewPaymentForm(Model model, @RequestParam(name = "id") Long orderId) {
+        model.addAttribute("order", orderService.getOrderByOrderId(orderId));
+        model.addAttribute("requestDto", new PaymentRequestDto(orderId,1,new Date(),""));
+        return "pay-order-form";
+    }
+
+    @PostMapping("/new-payment")
+    public String paymentReceived(@ModelAttribute @Valid PaymentRequestDto requestDto, Model model) {
+        //TODO: have some bug to fix: when paying an order with more money than needed, the balance does not update as it should
         PaymentResponseDto response = orderService.updateOrderWithPaymentReceived(requestDto);
         logService.newOrderLog(response);
         System.out.println(response.message());

@@ -10,7 +10,10 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
@@ -26,12 +29,12 @@ public class ApiOrderController {
         return new ResponseEntity<>(responseDto,HttpStatus.CREATED);
     }
 
-    @PatchMapping("/new-payment")
+    @PostMapping("/new-payment")
     public ResponseEntity<?> paymentReceived(@RequestBody @Valid PaymentRequestDto requestDto) {
         //TODO: have some bug to fix: when paying an order with more money than needed, the balance does not update as it should
         PaymentResponseDto response = orderService.updateOrderWithPaymentReceived(requestDto);
         logService.newOrderLog(response);
         System.out.println(response.message());
-        return new ResponseEntity<>(response.message(),HttpStatus.OK); //TODO: need to solve the response toString, to be able to send a proper body here
+        return new ResponseEntity<>(response.message(),HttpStatus.OK);
     }
 }
