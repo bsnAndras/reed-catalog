@@ -1,20 +1,9 @@
 package com.bsnandras.reedcatalog.dtos.newOrder;
 
-import lombok.Data;
-import java.util.Date;
+import com.bsnandras.reedcatalog.models.Order;
 
 public record NewOrderResponseDto(
         String message,
-        OrderDTO order
+        Order order
 ) {
-    @Data
-    public static class OrderDTO {
-        Long id;
-        Date dateOfPurchase;
-        int totalPrice;
-        Long customerId;
-        String customerName;
-        int amountToPay;
-
-    }
 }

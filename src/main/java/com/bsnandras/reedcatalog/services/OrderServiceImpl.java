@@ -49,8 +49,7 @@ public class OrderServiceImpl implements OrderService {
 
         logService.newOrderLog(newOrder); // TODO: place this line to controller
 
-        return new NewOrderResponseDto("Order placed",
-                modelMapper.map(newOrder, NewOrderResponseDto.OrderDTO.class));
+        return new NewOrderResponseDto("Order placed", newOrder);
     }
 
     @Override
