@@ -1,7 +1,10 @@
 package com.bsnandras.reedcatalog.models;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
@@ -13,6 +16,7 @@ import java.util.Date;
 public class Log {
     @Id
     @Column(name = "date_time", nullable = false, unique = true, updatable = false)
+    @Builder.Default
     private Date dateTime = new Date();
 
     @Column(nullable = false)
