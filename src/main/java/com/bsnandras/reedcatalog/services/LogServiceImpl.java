@@ -1,8 +1,8 @@
 package com.bsnandras.reedcatalog.services;
 
+import com.bsnandras.reedcatalog.dtos.newOrder.NewOrderResponseDto;
 import com.bsnandras.reedcatalog.dtos.paymentReceived.PaymentResponseDto;
 import com.bsnandras.reedcatalog.models.Log;
-import com.bsnandras.reedcatalog.models.Order;
 import com.bsnandras.reedcatalog.repositories.LogRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -26,12 +26,12 @@ public class LogServiceImpl implements LogService {
     }
 
     @Override
-    public Log newOrderLog(Order newOrder) {
+    public Log newOrderLog(NewOrderResponseDto response) {
         Log lastLog = showHistory().getFirst();
         Log newLog = Log.builder()
                 .dateTime(new Date())
-                .event("New Order placed")
-                .order(newOrder)
+                .event(response.message())
+                .order(response.order())
                 .actualBalance(lastLog.getActualBalance())
                 .build();
         return save(newLog);
@@ -43,7 +43,7 @@ public class LogServiceImpl implements LogService {
         int paymentAmount = response.moneyPaid();
         Log newLog = Log.builder()
                 .dateTime(new Date())
-                .event("Order updated after payment")
+                .event(response.message())
                 .order(response.updatedOrder())
                 .moneyExchange(paymentAmount)
                 .actualBalance(lastLog.getActualBalance() + paymentAmount)

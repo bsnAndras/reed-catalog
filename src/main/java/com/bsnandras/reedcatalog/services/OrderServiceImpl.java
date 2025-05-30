@@ -10,7 +10,6 @@ import com.bsnandras.reedcatalog.models.Customer;
 import com.bsnandras.reedcatalog.models.Order;
 import com.bsnandras.reedcatalog.repositories.OrderRepository;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -20,8 +19,6 @@ import java.util.Date;
 public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
     private final CustomerService customerService;
-    private final LogService logService;
-    private final ModelMapper modelMapper = new ModelMapper();
 
     /**
      * Place a new order without upfront payment,
@@ -46,8 +43,6 @@ public class OrderServiceImpl implements OrderService {
         newOrder = payOrderFromCustomerBalance(newOrder);
         orderRepository.save(newOrder);
         customerService.placeDebt(customer.getId(), newOrder);
-
-        logService.newOrderLog(newOrder); // TODO: place this line to controller
 
         return new NewOrderResponseDto("Order placed", newOrder);
     }

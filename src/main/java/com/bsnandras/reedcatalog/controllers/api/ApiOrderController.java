@@ -25,6 +25,7 @@ public class ApiOrderController {
     @PostMapping("/new-order")
     public ResponseEntity<NewOrderResponseDto> placeNewCustomerOrder(@RequestBody NewOrderRequestDto requestDto) {
         NewOrderResponseDto responseDto = orderService.placeNewOrder(requestDto);
+        logService.newOrderLog(responseDto);
         System.out.println(responseDto.message());
         return new ResponseEntity<>(responseDto,HttpStatus.CREATED);
     }

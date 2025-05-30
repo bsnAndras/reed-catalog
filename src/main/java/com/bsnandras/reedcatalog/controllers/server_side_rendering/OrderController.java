@@ -1,6 +1,7 @@
 package com.bsnandras.reedcatalog.controllers.server_side_rendering;
 
 import com.bsnandras.reedcatalog.dtos.newOrder.NewOrderRequestDto;
+import com.bsnandras.reedcatalog.dtos.newOrder.NewOrderResponseDto;
 import com.bsnandras.reedcatalog.dtos.paymentReceived.PaymentRequestDto;
 import com.bsnandras.reedcatalog.dtos.paymentReceived.PaymentResponseDto;
 import com.bsnandras.reedcatalog.services.LogService;
@@ -23,7 +24,9 @@ public class OrderController {
 
     @PostMapping("/new-order")
     public String placeNewCustomerOrder(@ModelAttribute NewOrderRequestDto requestDto, Model model) {
-        System.out.println(orderService.placeNewOrder(requestDto).message());
+        NewOrderResponseDto responseDto = orderService.placeNewOrder(requestDto);
+        logService.newOrderLog(responseDto);
+        System.out.println(responseDto.message());
         return "redirect:/log";
     }
 

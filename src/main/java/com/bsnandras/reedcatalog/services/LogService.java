@@ -1,8 +1,8 @@
 package com.bsnandras.reedcatalog.services;
 
+import com.bsnandras.reedcatalog.dtos.newOrder.NewOrderResponseDto;
 import com.bsnandras.reedcatalog.dtos.paymentReceived.PaymentResponseDto;
 import com.bsnandras.reedcatalog.models.Log;
-import com.bsnandras.reedcatalog.models.Order;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ public interface LogService {
 
     List<Log> showHistory();
 
-    Log newOrderLog(Order newOrder);
+    Log newOrderLog(NewOrderResponseDto response);
 
     Log newOrderLog(PaymentResponseDto response);
 }
