@@ -1,15 +1,13 @@
 name: Java CI with gradle
 on:
   push:
-    branches: [ main, dev ]
+    branches: [ main, dev, ci-cd/ci ]
   pull_request:
     branches: [ main, dev ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -19,9 +17,13 @@ jobs:
         with:
           java-version: '21'
           distribution: 'corretto'
+          cache: gradle
+
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
 
       - name: Build with Gradle
-        run: ./gradlew build
+        run: ./gradlew build -x test
 
       - name: Run tests
-        run: ./gradlew test
+        run: ./gradlew test --scan

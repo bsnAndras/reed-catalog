@@ -83,7 +83,7 @@ class CustomerServiceTest {
         //When
         customerService.showAllCustomers();
         //Then
-        verify(customerRepository).findAll();
+        verify(customerRepository).findAllByOrderByName();
     }
 
     @Test
