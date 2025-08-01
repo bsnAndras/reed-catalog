@@ -39,7 +39,6 @@ public class OrderController {
 
     @PostMapping("/new-payment")
     public String paymentReceived(@ModelAttribute @Valid PaymentRequestDto requestDto, Model model) {
-        //TODO: have some bug to fix: when paying an order with more money than needed, the balance does not update as it should
         PaymentResponseDto response = orderService.updateOrderWithPaymentReceived(requestDto);
         logService.newOrderLog(response);
         System.out.println(response.message());

@@ -1,7 +1,10 @@
 package com.bsnandras.reedcatalog.models;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Set;
 
@@ -10,7 +13,7 @@ import java.util.Set;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "customers")
+@Table(name = "customers") // TODO: should rename to "partners"
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

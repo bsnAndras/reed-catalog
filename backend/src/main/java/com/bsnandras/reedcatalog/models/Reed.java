@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "reeds")
+@Table(name = "reeds") //TODO: Create Stock instead, which stores StockItems
 public class Reed {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

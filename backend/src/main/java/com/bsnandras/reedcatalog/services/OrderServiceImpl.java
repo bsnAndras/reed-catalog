@@ -110,6 +110,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public PaymentResponseDto updateOrderWithPaymentReceived(PaymentRequestDto requestDto) {
+        //TODO: have some bug to fix: when paying an order with more money than needed, the balance does not update as it should
         String responseMessage;
         Order order = orderRepository.findById(requestDto.orderId())
                 .orElseThrow(() -> new OrderNotFoundException("Order cannot be found under this ID"));
