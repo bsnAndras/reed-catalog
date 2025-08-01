@@ -27,8 +27,8 @@ public class Log {
     private Order order;
 
     @Column
-    private Integer moneyExchange;
+    private Integer moneyExchange; //TODO: Create Transactions table instead, can reference it here
 
     @Column(nullable = false)
-    private Integer actualBalance;
+    private Integer actualBalance; //TODO: remove this as well
 }

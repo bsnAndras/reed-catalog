@@ -14,7 +14,7 @@ import java.util.Set;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "batches")
+@Table(name = "batches") //TODO: Should create OrderItems instead of this (Stores items for orders)
 public class Batch {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
