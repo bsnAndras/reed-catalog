@@ -15,6 +15,8 @@ services:
       - "3307:3306"
     networks:
       - reed_catalog_dev_network
+    volumes:
+      - reed_catalog_dev:/var/lib/mysql
 
   reed-catalog-backend-dev:
     container_name: reed_catalog_backend_dev
@@ -37,3 +39,6 @@ services:
 networks:
   reed_catalog_dev_network:
     name: reed_catalog_dev_network
+
+volumes:
+  reed_catalog_dev:
