@@ -5,7 +5,7 @@ import lombok.Builder;
 
 import java.util.List;
 @Builder
-public record CustomerPageResponseDto(
+public record PartnerPageResponseDto(
         Long id,
         String name,
         int balance,

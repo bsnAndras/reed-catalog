@@ -12,14 +12,14 @@
     <div class="container">
         <div class="header-container">
             <a class="button-secondary" th:href="@{/}">Back to Home</a>
-            <p th:text="|Customer ID: ${customer.id()}|"></p>
+            <p th:text="|Partner ID: ${partner.id()}|"></p>
         </div>
-        <h1 th:text="${customer.name}"></h1>
-        <section th:text="|Current balance: ${customer.balance}|"></section>
+        <h1 th:text="${partner.name}"></h1>
+        <section th:text="|Current balance: ${partner.balance}|"></section>
         <div class="table-container">
             <div class="header-container">
                 <h2>Orders</h2>
-                <a class="button-primary" th:href="|@{/customer/new-order}?id=${customer.id()}|">Place new order</a>
+                <a class="button-primary" th:href="|@{/partner/new-order}?id=${partner.id()}|">Place new order</a>
 
             </div>
             <table>
@@ -32,7 +32,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <th:block th:each="order : ${customer.orderList}">
+                    <th:block th:each="order : ${partner.orderList}">
                         <tr th:object="${order}">
                             <td th:text="*{id}"></td>
                             <td th:text="*{dateOfPurchase}"></td>

@@ -37,6 +37,6 @@ public class Order {
     private Set<Log> logs;
 
     @ManyToOne
-    @JoinColumn(name = "customer_id", nullable = false)
-    private Customer customer;
+    @JoinColumn(name = "partner_id", nullable = false)
+    private Partner partner;
 }

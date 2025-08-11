@@ -25,10 +25,10 @@ Tables:
 ### Order
 - id
 - date of purchase
-- customer_id
+- partner_id
 - total price
 - amount to pay
-### Customer
+### Partner
 - id
 - name
 - balance

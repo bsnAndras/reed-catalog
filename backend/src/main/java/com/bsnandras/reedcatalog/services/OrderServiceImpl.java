@@ -6,8 +6,8 @@ import com.bsnandras.reedcatalog.dtos.newOrder.NewOrderResponseDto;
 import com.bsnandras.reedcatalog.dtos.paymentReceived.PaymentRequestDto;
 import com.bsnandras.reedcatalog.dtos.paymentReceived.PaymentResponseDto;
 import com.bsnandras.reedcatalog.errors.OrderNotFoundException;
-import com.bsnandras.reedcatalog.models.Customer;
 import com.bsnandras.reedcatalog.models.Order;
+import com.bsnandras.reedcatalog.models.Partner;
 import com.bsnandras.reedcatalog.repositories.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,31 +18,31 @@ import java.util.Date;
 @RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
-    private final CustomerService customerService;
+    private final PartnerService partnerService;
 
     /**
      * Place a new order without upfront payment,
-     * and updates the customer's account balance and the order's amountToPay accordingly.
+     * and updates the partner's account balance and the order's amountToPay accordingly.
      *
      * @param requestDto the new order request
      * @return a message whether the order registration was successful
      */
     @Override
     public NewOrderResponseDto placeNewOrder(NewOrderRequestDto requestDto) {
-        Customer customer = customerService.getCustomer(requestDto.customerId());
+        Partner partner = partnerService.getPartner(requestDto.partnerId());
 
         // Place new order (Reeds will not be added for now.)
         //Todo: implement Reeds into this process later.
         Order newOrder = Order.builder()
                 .dateOfPurchase(new Date())
-                .customer(customer)
+                .partner(partner)
                 .totalPrice(requestDto.totalPrice())
                 .amountToPay(requestDto.totalPrice())
                 .build();
 
-        newOrder = payOrderFromCustomerBalance(newOrder);
+        newOrder = payOrderFromPartnerBalance(newOrder);
         orderRepository.save(newOrder);
-        customerService.placeDebt(customer.getId(), newOrder);
+        partnerService.placeDebt(partner.getId(), newOrder);
 
         return new NewOrderResponseDto("Order placed", newOrder);
     }
@@ -51,43 +51,43 @@ public class OrderServiceImpl implements OrderService {
     public OrderInfoDto getOrderByOrderId(Long orderId) {
         Order order = orderRepository.findById(orderId)
                 .orElseThrow(()-> new OrderNotFoundException("No order found under this id: " + orderId));
-        String customerName = order.getCustomer().getName();
+        String partnerName = order.getPartner().getName();
 
         return new OrderInfoDto(
                 orderId,
                 order.getDateOfPurchase(),
                 order.getTotalPrice(),
                 order.getAmountToPay(),
-                customerName
+                partnerName
         );
     }
 
     /**
-     * The method for paying an order from customer's excess money from his/her account
+     * The method for paying an order from partner's excess money from his/her account
      *
-     * @param order The Order you wish to pay from Customer balance
-     * @return the Order after paying from the customer balance
+     * @param order The Order you wish to pay from Partner balance
+     * @return the Order after paying from the partner balance
      */
-    public Order payOrderFromCustomerBalance(Order order) {
-        Customer customer = order.getCustomer();
-        int currentBalance = customer.getBalance();
-        int customerDebt = order.getAmountToPay();
+    public Order payOrderFromPartnerBalance(Order order) {
+        Partner partner = order.getPartner();
+        int currentBalance = partner.getBalance();
+        int partnerDebt = order.getAmountToPay();
 
         int amountToBePayed;
 
-        if ((currentBalance <= 0 && customerDebt >= 0) || customerDebt == 0) {
+        if ((currentBalance <= 0 && partnerDebt >= 0) || partnerDebt == 0) {
             return order;
         }
-        if (customerDebt < 0) {
-            amountToBePayed = customerDebt;
+        if (partnerDebt < 0) {
+            amountToBePayed = partnerDebt;
         } else {
-            amountToBePayed = Math.min(currentBalance, customerDebt);
+            amountToBePayed = Math.min(currentBalance, partnerDebt);
         }
 
-        customerService.setBalance(customer.getId(),
+        partnerService.setBalance(partner.getId(),
                 currentBalance - amountToBePayed);
 
-        order.setAmountToPay(customerDebt - amountToBePayed);
+        order.setAmountToPay(partnerDebt - amountToBePayed);
 
         return order;
     }
@@ -96,15 +96,15 @@ public class OrderServiceImpl implements OrderService {
      * Pays the order with the money the user paid. If the user paid too much, returns the excess amount.
      *
      * @param order     the order to be paid
-     * @param moneyPaid the money, the customer paid
+     * @param moneyPaid the money, the partner paid
      * @return the excess money, that was not used up for paying debt
      */
     public int payOrderFromNewMoney(Order order, int moneyPaid) {
-        int customerDebt = order.getAmountToPay();
-        int amountToBePayed = Math.min(customerDebt, moneyPaid);
-        Customer customer = order.getCustomer();
-        order.setAmountToPay(customerDebt-amountToBePayed);
-        customerService.setBalance(customer.getId(), customer.getBalance() + amountToBePayed);
+        int partnerDebt = order.getAmountToPay();
+        int amountToBePayed = Math.min(partnerDebt, moneyPaid);
+        Partner partner = order.getPartner();
+        order.setAmountToPay(partnerDebt-amountToBePayed);
+        partnerService.setBalance(partner.getId(), partner.getBalance() + amountToBePayed);
         return moneyPaid - amountToBePayed;
     }
 
@@ -115,11 +115,11 @@ public class OrderServiceImpl implements OrderService {
         Order order = orderRepository.findById(requestDto.orderId())
                 .orElseThrow(() -> new OrderNotFoundException("Order cannot be found under this ID"));
 
-        order = payOrderFromCustomerBalance(order);
-        Customer customer = order.getCustomer();
+        order = payOrderFromPartnerBalance(order);
+        Partner partner = order.getPartner();
 
         int excessFromPayment = payOrderFromNewMoney(order, requestDto.paymentAmount());
-        int newCustomerBalance = customer.getBalance();
+        int newPartnerBalance = partner.getBalance();
 
         orderRepository.save(order);
 
@@ -136,7 +136,7 @@ public class OrderServiceImpl implements OrderService {
 
         return PaymentResponseDto.builder()
                 .request(requestDto)
-                .newCustomerBalance(newCustomerBalance)
+                .newPartnerBalance(newPartnerBalance)
                 .updatedOrder(order)
                 .moneyPaid(requestDto.paymentAmount() - excessFromPayment)
                 .message(responseMessage)

@@ -15,9 +15,9 @@
             <h1>Placing new order</h1>
             <form th:method="'post'"  th:object="${requestDto}" th:action="@{/order/new-order}">
                 <div class="input-group">
-                    <label for="customer">Customer:</label>
-                    <select th:field="*{customerId}" name="customerId" id="customer">
-                        <option th:text="${customer.name}" th:value="${customer.id}"></option>
+                    <label for="partner">Partner:</label>
+                    <select th:field="*{partnerId}" name="partnerId" id="partner">
+                        <option th:text="${partner.name}" th:value="${partner.id}"></option>
                     </select>
                 </div>
                 <div class="input-group">
