@@ -21,6 +21,7 @@ public class Order {
     private Long id;
 
     @Column(name = "date_of_purchase", nullable = false)
+    @Builder.Default
     private Date dateOfPurchase = new Date();
 
     @Column(nullable = false)
@@ -36,6 +37,6 @@ public class Order {
     private Set<Log> logs;
 
     @ManyToOne
-    @JoinColumn(name = "customer_id", nullable = false)
-    private Customer customer;
+    @JoinColumn(name = "partner_id", nullable = false)
+    private Partner partner;
 }

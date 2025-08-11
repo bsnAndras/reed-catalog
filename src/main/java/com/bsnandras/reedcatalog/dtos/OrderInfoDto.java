@@ -7,6 +7,6 @@ public record OrderInfoDto(
         Date dateOfPurchase,
         int totalPrice,
         int amountToPay,
-        String customerName
+        String partnerName
 ) {
 }

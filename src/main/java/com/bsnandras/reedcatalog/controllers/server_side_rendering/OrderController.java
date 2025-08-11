@@ -23,7 +23,7 @@ public class OrderController {
     private final LogService logService;
 
     @PostMapping("/new-order")
-    public String placeNewCustomerOrder(@ModelAttribute NewOrderRequestDto requestDto, Model model) {
+    public String placeNewPartnerOrder(@ModelAttribute NewOrderRequestDto requestDto, Model model) {
         NewOrderResponseDto responseDto = orderService.placeNewOrder(requestDto);
         logService.newOrderLog(responseDto);
         System.out.println(responseDto.message());

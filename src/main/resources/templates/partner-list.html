@@ -12,7 +12,7 @@
     <div class="container">
         <a class="button-secondary" th:href="@{/}">Back to Home</a>
         <div class="table-container">
-            <h1>List of all customers</h1>
+            <h1>List of all partners</h1>
             <table>
                 <thead>
                     <tr>
@@ -22,10 +22,10 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <th:block th:each="customer : ${customerList}">
-                        <tr th:object="${customer}">
+                    <th:block th:each="partner : ${partnerList}">
+                        <tr th:object="${partner}">
                             <td th:text="*{id}"></td>
-                            <td><a th:text="*{name}" th:href="|@{/customer/profile}?id=*{id}|"></a></td>
+                            <td><a th:text="*{name}" th:href="|@{/partner/profile}?id=*{id}|"></a></td>
                             <td th:text="*{balance}"></td>
                         </tr>
                     </th:block>

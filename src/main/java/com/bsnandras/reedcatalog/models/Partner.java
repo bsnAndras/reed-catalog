@@ -13,8 +13,8 @@ import java.util.Set;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "customers") // TODO: should rename to "partners"
-public class Customer {
+@Table(name = "partners")
+public class Partner {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -25,6 +25,6 @@ public class Customer {
     @Column(nullable = false)
     private int balance;
 
-    @OneToMany(mappedBy = "customer")
+    @OneToMany(mappedBy = "partner")
     private Set<Order> orderList;
 }

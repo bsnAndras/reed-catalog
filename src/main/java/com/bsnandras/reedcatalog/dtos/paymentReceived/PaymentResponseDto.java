@@ -8,7 +8,7 @@ public record PaymentResponseDto(
         String message,
         PaymentRequestDto request,
         Order updatedOrder,
-        int newCustomerBalance,
+        int newPartnerBalance,
         int moneyPaid
 ) {
 }
