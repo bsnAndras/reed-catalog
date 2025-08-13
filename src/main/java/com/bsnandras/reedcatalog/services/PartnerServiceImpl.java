@@ -8,6 +8,7 @@ import com.bsnandras.reedcatalog.repositories.PartnerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.rmi.AlreadyBoundException;
 import java.util.List;
 
 @Service
@@ -31,7 +32,7 @@ public class PartnerServiceImpl implements PartnerService {
             throw new IllegalArgumentException("Invalid balance value upon adding new Partner. Balance should be non-negative.");
         }
         if (partnerRepository.existsByName(partner.getName())) {
-            throw new IllegalArgumentException("Partner with this name already exists");
+            throw new IllegalArgumentException(new AlreadyBoundException("Partner with this name already exists"));
         }
 
         partnerRepository.save(partner);
