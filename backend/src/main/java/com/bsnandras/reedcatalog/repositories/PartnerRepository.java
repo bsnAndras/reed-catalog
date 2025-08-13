@@ -8,5 +8,8 @@ import java.util.Optional;
 
 public interface PartnerRepository extends JpaRepository<Partner,Long> {
     Optional<Partner> findById(Long id);
+
+    boolean existsByName(String name);
+
     List<Partner> findAllByOrderByName();
 }

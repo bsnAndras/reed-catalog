@@ -9,6 +9,8 @@ import java.util.List;
 public interface PartnerService {
     Partner getPartner(Long id);
 
+    boolean addPartner(Partner partner);
+
     List<Order> getOrderHistory(Long partnerId);
 
     List<Partner> showAllPartners();
