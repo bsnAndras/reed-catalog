@@ -1,7 +1,20 @@
 # Reed Catalog
 A program for managing bassoon reeds
 ## Database structure
-Tables: 
+Tables:
+
+### Partner
+- id
+- name
+- balance
+
+>the partners table needs a __default vendor__ record, which is created on first run.
+> This record is used to track the vendor's balance and transactions.
+
+_Necessary properties as environment variables:_
+- VENDOR_USERNAME
+- VENDOR_INITIAL_BALANCE
+
 ### Log
 - date-time
 - event
@@ -28,7 +41,3 @@ Tables:
 - partner_id
 - total price
 - amount to pay
-### Partner
-- id
-- name
-- balance
