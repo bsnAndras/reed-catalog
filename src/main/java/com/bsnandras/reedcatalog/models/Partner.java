@@ -6,7 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Set;
+import java.util.List;
 
 @Data
 @Builder
@@ -26,5 +26,11 @@ public class Partner {
     private int balance;
 
     @OneToMany(mappedBy = "partner")
-    private Set<Order> orderList;
+    private List<Order> orderList;
+
+    @OneToMany(mappedBy = "fromPartner")
+    private List<Transaction> sentTransactions;
+
+    @OneToMany(mappedBy = "toPartner")
+    private List<Transaction> receivedTransactions;
 }
