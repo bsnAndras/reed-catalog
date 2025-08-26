@@ -21,6 +21,7 @@ public class Order {
     private Long id;
 
     @Column(name = "date_of_purchase", nullable = false)
+    @Builder.Default
     private Date dateOfPurchase = new Date();
 
     @Column(nullable = false)
