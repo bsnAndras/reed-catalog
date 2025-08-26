@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'com.bsnandras'
-version = '0.0.1-SNAPSHOT'
+version = '1.0.0-LOCAL'
 
 java {
     toolchain {

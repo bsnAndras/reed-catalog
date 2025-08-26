@@ -15,6 +15,6 @@ FROM amazoncorretto:21-al2023-jdk
 
 WORKDIR /reedCatalogApp
 
-COPY --from=build /reedCatalogApp/build/libs/reed-catalog-0.0.1-SNAPSHOT.jar .
+COPY --from=build /reedCatalogApp/build/libs/reed-catalog-1.0.0-LOCAL.jar .
 
-CMD ["java", "-jar", "/reedCatalogApp/reed-catalog-0.0.1-SNAPSHOT.jar"]
+CMD ["java", "-jar", "/reedCatalogApp/reed-catalog-1.0.0-LOCAL.jar"]
