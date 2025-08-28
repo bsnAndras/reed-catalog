@@ -1,4 +1,4 @@
-# V2 -> V3 migration: add transactions table, migrate data from log table, delete log table
+# V2 -> V3 migration: add transactions table, migrate data from log table
 
 # Create an EXTERNAL_ACCOUNT partner for money leaving the system or coming into the system
 INSERT INTO partners (id, balance, name)

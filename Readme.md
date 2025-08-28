@@ -15,6 +15,13 @@ _Necessary properties as environment variables:_
 - VENDOR_USERNAME
 - VENDOR_INITIAL_BALANCE
 
+### Transaction
+- timestamp
+- amount
+- description
+- fromPartner
+- toPartner
+
 ### Log
 - date-time
 - event
