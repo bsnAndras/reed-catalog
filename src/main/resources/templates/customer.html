@@ -10,11 +10,11 @@
 
 <body>
     <div class="container">
-        <div class="header-container">
-            <a class="button-secondary" th:href="@{/}">Back to Home</a>
+        <a class="button-secondary" th:href="@{/}">Home</a>
+        <div class="title-container">
+            <h1 th:text="${customer.name}"></h1>
             <p th:text="|Customer ID: ${customer.id()}|"></p>
         </div>
-        <h1 th:text="${customer.name}"></h1>
         <section th:text="|Current balance: ${customer.balance}|"></section>
         <div class="table-container">
             <div class="header-container">
@@ -22,27 +22,29 @@
                 <a class="button-primary" th:href="|@{/customer/new-order}?id=${customer.id()}|">Place new order</a>
 
             </div>
-            <table>
-                <thead>
+            <figure class="fig-table">
+                <table>
+                    <thead>
                     <tr>
-                        <th>#</th>
+                        <th class="cellType-index">#</th>
                         <th>Date of purchase</th>
-                        <th>Total price</th>
+                        <th class="cellType-num">Total price</th>
                         <th colspan="2">Amount to pay</th>
                     </tr>
-                </thead>
-                <tbody>
+                    </thead>
+                    <tbody>
                     <th:block th:each="order : ${customer.orderList}">
                         <tr th:object="${order}">
-                            <td th:text="*{id}"></td>
+                            <td class="cellType-index" th:text="*{id}"></td>
                             <td th:text="*{dateOfPurchase}"></td>
-                            <td th:text="*{totalPrice}"></td>
-                            <td th:text="*{amountToPay}"></td>
+                            <td class="cellType-num" th:text="*{totalPrice}"></td>
+                            <td class="cellType-num" th:text="*{amountToPay}"></td>
                             <td><a th:if="*{amountToPay>0}" class="button-primary" th:href="|@{/order/new-payment}?id=*{id}|">Pay Order</a></td>
                         </tr>
                     </th:block>
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </figure>
         </div>
     </div>
 </body>

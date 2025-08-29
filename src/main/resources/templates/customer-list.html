@@ -10,27 +10,29 @@
 
 <body>
     <div class="container">
-        <a class="button-secondary" th:href="@{/}">Back to Home</a>
+        <a class="button-secondary" th:href="@{/}">Home</a>
         <div class="table-container">
             <h1>List of all customers</h1>
-            <table>
-                <thead>
+            <figure class="fig-table">
+                <table>
+                    <thead>
                     <tr>
-                        <th>#</th>
+                        <th class="cellType-index">#</th>
                         <th>name</th>
-                        <th>Balance</th>
+                        <th class="cellType-num">Balance</th>
                     </tr>
-                </thead>
-                <tbody>
+                    </thead>
+                    <tbody>
                     <th:block th:each="customer : ${customerList}">
                         <tr th:object="${customer}">
-                            <td th:text="*{id}"></td>
+                            <td class="cellType-index" th:text="*{id}"></td>
                             <td><a th:text="*{name}" th:href="|@{/customer/profile}?id=*{id}|"></a></td>
-                            <td th:text="*{balance}"></td>
+                            <td class="cellType-num" th:text="*{balance}"></td>
                         </tr>
                     </th:block>
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </figure>
         </div>
     </div>
 </body>
