@@ -1,8 +1,11 @@
 # V2 -> V3 migration: add transactions table, migrate data from log table
 
-# Create an EXTERNAL_ACCOUNT partner for money leaving the system or coming into the system
+# Create predefined users:
+# EXTERNAL_ACCOUNT partner for money leaving the system or coming into the system
+# Vendor partner representing the system admin
 INSERT INTO partners (id, balance, name)
-    VALUE (-1,0, 'EXTERNAL_ACCOUNT');
+    VALUES (-1,0, 'EXTERNAL_ACCOUNT'),
+           (0,0, '${vendorUsername}');
 
 CREATE TABLE transactions
 (
