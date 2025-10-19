@@ -41,3 +41,5 @@ networks:
 
 volumes:
   reed_catalog_production:
+    external: true
+    name: reed_catalog_production
