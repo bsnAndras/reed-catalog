@@ -2,7 +2,7 @@ name: reed-catalog-dev
 services:
   mysql-dev:
     container_name: mysql_dev
-    image: mysql:latest
+    image: mysql:9
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: reed_catalog
