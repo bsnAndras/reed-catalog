@@ -16,7 +16,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -47,7 +47,9 @@ class PartnerServiceTest {
                 1L,
                 "John Smith",
                 -3000,
-                new HashSet<>()
+                new ArrayList<>(),
+                new ArrayList<>(),
+                new ArrayList<>()
         );
         partner.getOrderList().addAll(
                 List.of(
@@ -151,7 +153,7 @@ class PartnerServiceTest {
                 .amountToPay(1000)
                 .build();
 
-        partner.setOrderList(new HashSet<>(List.of(
+        partner.setOrderList(new ArrayList<>(List.of(
                 Order.builder()
                         .id(1L)
                         .totalPrice(3000)
