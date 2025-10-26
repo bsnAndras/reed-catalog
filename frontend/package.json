@@ -11,6 +11,7 @@
     "test:coverage": "vitest run --coverage",
     "biome": "biome check",
     "biome:fix": "biome check --write",
+    "biome:write": "biome check --write",
     "lint": "biome lint --write",
     "format": "biome format --write"
   },

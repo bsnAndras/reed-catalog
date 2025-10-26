@@ -52,7 +52,7 @@ out/
 /.nb-gradle/
 
 # Other editor directories and files
-.vscode/*
+.vscode
 !.vscode/extensions.json
 .DS_Store
 *.suo
