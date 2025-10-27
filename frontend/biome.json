@@ -8,16 +8,27 @@
     "includes": ["**", "!node_modules", "!dist", "!build", "!src/assets"]
   },
   "formatter": {
-    "includes": ["**", "!vite.config.ts"],
+    "includes": ["**", "!vite.config.ts", "!**/*.css"],
     "enabled": true,
     "indentStyle": "space",
     "indentWidth": 2,
-    "lineEnding": "lf"
+    "lineEnding": "lf",
+    "expand": "auto"
   },
   "linter": {
+    "includes": ["**", "!**/*.css"],
     "enabled": true,
     "rules": {
       "recommended": true
+    }
+  },
+  "assist": {
+    "includes": ["**", "!**/*.css"],
+    "enabled": true,
+    "actions": {
+      "source": {
+        "organizeImports": "on"
+      }
     }
   },
   "javascript": {
@@ -25,12 +36,9 @@
       "quoteStyle": "double"
     }
   },
-  "assist": {
-    "enabled": true,
-    "actions": {
-      "source": {
-        "organizeImports": "on"
-      }
+  "css": {
+    "parser": {
+      "tailwindDirectives": true
     }
   }
 }
