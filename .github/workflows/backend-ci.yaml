@@ -1,13 +1,16 @@
-name: Java CI with gradle
+name: Build and Test Backend with Gradle
 on:
   push:
-    branches: [ main, dev, ci-cd/ci ]
+    branches: [ main, backend/dev, frontend/dev ]
   pull_request:
-    branches: [ main, dev ]
+    branches: [ main, backend/dev, frontend/dev ]
 
 jobs:
-  build:
+  build-backend:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
