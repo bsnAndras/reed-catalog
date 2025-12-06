@@ -30,6 +30,9 @@ public class Order {
     @Column(name = "amount_to_pay",nullable = false)
     private int amountToPay;
 
+    @Column(name = "notes")
+    private String notes;
+
     @OneToMany(mappedBy = "order")
     private Set<Reed> reedList;
 
