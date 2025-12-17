@@ -13,7 +13,10 @@ CREATE TABLE transactions
     amount       INT       NOT NULL,
     description  VARCHAR(100),
     from_partner BIGINT    NOT NULL,
-    to_partner   BIGINT    NOT NULL
+    to_partner   BIGINT    NOT NULL,
+    PRIMARY KEY (timestamp),
+    FOREIGN KEY (from_partner) REFERENCES partners (id),
+    FOREIGN KEY (to_partner) REFERENCES partners (id)
 );
 
 # Migrate data from log table to transactions table based on money_exchange
