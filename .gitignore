@@ -4,6 +4,7 @@ backend/HELP.md
 !.env.sample
 .gradle
 !gradle/wrapper/gradle-wrapper.jar
+.tmp/
 
 # Builds
 build/
@@ -52,7 +53,7 @@ out/
 /.nb-gradle/
 
 # Other editor directories and files
-.vscode
+.vscode/*
 !.vscode/extensions.json
 .DS_Store
 *.suo
