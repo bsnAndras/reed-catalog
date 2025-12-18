@@ -47,12 +47,12 @@ export const Dashboard = () => {
               <th>Apr</th>
               <th>May</th>
               <th>Jun</th>
-              <th>Jul</th>
+              {/* <th>Jul</th>
               <th>Aug</th>
               <th>Sep</th>
               <th>Oct</th>
               <th>Nov</th>
-              <th>Dec</th>
+              <th>Dec</th> */}
             </tr>
           </thead>
           <tbody>
