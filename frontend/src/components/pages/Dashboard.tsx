@@ -5,8 +5,8 @@ export const Dashboard = () => {
     dateTime: Date;
     event: string;
     orderId: number | null;
-    partner: LogPartner | null;
     moneyExchanged: number;
+    partner: LogPartner | null;
   };
 
   type LogPartner = {
@@ -19,8 +19,12 @@ export const Dashboard = () => {
   const currYear = currentDate.getFullYear();
   const currMonth = currentDate.toLocaleString("default", { month: "long" });
 
-  // Log data (dummy for now)
-  const [logs, setLogs] = useState<Log[]>([
+  // Log data state
+  const [logs, setLogs] = useState<Log[]>([]);
+
+  // Dummy log data for now.
+  // TODO: Replace with real data fetching
+  const dummyLogs = [
     {
       dateTime: new Date("2024-06-01T10:15:00"),
       event: "Initial balance",
@@ -70,7 +74,14 @@ export const Dashboard = () => {
       partner: { id: -1, name: "EXTERNAL PARTNER" },
       moneyExchanged: 100_000,
     },
-  ]);
+  ];
+
+  // Simulate data loading after 5 seconds
+  window.onload = () => {
+    setTimeout(() => {
+      setLogs(dummyLogs);
+    }, 5000);
+  };
 
   return (
     <>
@@ -143,35 +154,40 @@ export const Dashboard = () => {
       <div className="divider"></div>
       <section className="log m-auto max-w-210 xl:max-w-3/5 flex flex-col items-center gap-4 my-4">
         <h2 className="text-3xl font-bold text-center">Log</h2>
-        <table className="logTable">
-          <thead>
+        <table className="logTable table-auto m-2 border-collapse">
+          <colgroup className="m-0.5"></colgroup>
+          <thead className="bg-amber-400">
             <tr>
               <th>Date & Time</th>
               <th>Event</th>
               <th>Order ID</th>
-              <th>Partner</th>
               <th>Money Exchanged</th>
+              <th>Partner</th>
             </tr>
           </thead>
           <tbody>
-            {logs.map((log, index) => (
-              <tr className="log" key={index}>
-                <td>{log.dateTime.toUTCString()}</td>
-                <td>{log.event}</td>
-                <td>{log.orderId || "-"}</td>
-                <td>{log.moneyExchanged}</td>
-                <td>{log.partner?.name}</td>
-              </tr>
-            ))}
+            {logs.length > 0 ? (
+              logs.map((log) => (
+                <tr className="log" key={log.dateTime.toISOString()}>
+                  <td>{log.dateTime.toUTCString()}</td>
+                  <td>{log.event}</td>
+                  <td>{log.orderId || "-"}</td>
+                  <td>{log.moneyExchanged}</td>
+                  <td>{log.partner?.name}</td>
+                </tr>
+              ))
+            ) : (
+              <td colSpan={5}>
+                <div className="flex w-full flex-col gap-4">
+                  <div className="skeleton h-4 w-3/4"></div>
+                  <div className="skeleton h-4 w-full"></div>
+                  <div className="skeleton h-4 w-full"></div>
+                  <div className="skeleton h-4 w-full"></div>
+                </div>
+              </td>
+            )}
           </tbody>
         </table>
-        <div className="flex w-3/5 flex-col gap-4">
-          <div className="skeleton h-8 w-full"></div>
-          <div className="skeleton h-4 w-3/4"></div>
-          <div className="skeleton h-4 w-full"></div>
-          <div className="skeleton h-4 w-full"></div>
-          <div className="skeleton h-4 w-full"></div>
-        </div>
       </section>
     </>
   );
