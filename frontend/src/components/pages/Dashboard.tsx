@@ -86,7 +86,7 @@ export const Dashboard = () => {
   return (
     <>
       <h1 className="text-3xl font-bold text-center">Dashboard</h1>
-      <section className="stats m-auto max-w-210 xl:max-w-3/5 flex flex-col items-center gap-4 my-4">
+      <section className="stats m-auto w-full max-w-210 xl:max-w-3/5 flex flex-col items-center gap-4 my-4">
         <h2 className="text-center text-xl font-semibold text-accent">
           {currYear}. {currMonth}
         </h2>
@@ -111,74 +111,84 @@ export const Dashboard = () => {
             </li>
           </ul>
         </div>
-        <table className="table-auto m-2 overflow-x-scroll border-collapse">
-          <col className="w-20"></col>
-          {Array.from<number>({ length: 12 }).map((i) => (
-            <col key={i} className="w-16"></col>
-          ))}
-          <thead>
-            <tr className="bg-amber-400">
-              <th>
-                <span className="loading loading-dots loading-lg"></span>
-              </th>
-              <th>Jan</th>
-              <th>Feb</th>
-              <th>Mar</th>
-              <th>Apr</th>
-              <th>May</th>
-              <th>Jun</th>
-              {/* <th>Jul</th>
-              <th>Aug</th>
-              <th>Sep</th>
-              <th>Oct</th>
-              <th>Nov</th>
-              <th>Dec</th> */}
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Income</td>
-            </tr>
-            <tr>
-              <td>Expense</td>
-            </tr>
-            <tr>
-              <td>Cash-flow</td>
-            </tr>
-            <tr>
-              <td>Balance</td>
-            </tr>
-          </tbody>
-        </table>
+        <figure className="w-full overflow-x-auto">
+          <table className="stats-per-month table-auto m-auto p-2 border-collapse">
+              <col className="w-30"></col>
+              {Array.from<number>({ length: 12 }).map((i) => (
+                <col key={i} className=""></col>
+              ))}
+            <thead>
+              <tr className="bg-amber-400">
+                <th>
+                  <span className="loading loading-dots loading-lg"></span>
+                </th>
+                <th className="px-2">Jan</th>
+                <th className="px-2">Feb</th>
+                <th className="px-2">Mar</th>
+                <th className="px-2">Apr</th>
+                <th className="px-2">May</th>
+                <th className="px-2">Jun</th>
+                <th className="px-2">Jul</th>
+                <th className="px-2">Aug</th>
+                <th className="px-2">Sep</th>
+                <th className="px-2">Oct</th>
+                <th className="px-2">Nov</th>
+                <th className="px-2">Dec</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td className="p-1">Income</td>
+              </tr>
+              <tr>
+                <td className="p-1">Expense</td>
+              </tr>
+              <tr>
+                <td className="p-1">Cash-flow</td>
+              </tr>
+              <tr>
+                <td className="p-1">Balance</td>
+              </tr>
+            </tbody>
+          </table>
+        </figure>
       </section>
       <div className="divider"></div>
-      <section className="log m-auto max-w-210 xl:max-w-3/5 flex flex-col items-center gap-4 my-4">
+      <section className="log m-auto w-full max-w-210 xl:max-w-3/5 flex flex-col items-center gap-4 my-4">
         <h2 className="text-3xl font-bold text-center">Log</h2>
-        <table className="logTable table-auto m-2 border-collapse">
-          <colgroup className="m-0.5"></colgroup>
+        <table className="logTable table-auto w-full p-2 border-collapse">
           <thead className="bg-amber-400">
             <tr>
-              <th>Date & Time</th>
-              <th>Event</th>
-              <th>Order ID</th>
-              <th>Money Exchanged</th>
-              <th>Partner</th>
+              <th className="px-2 text-left">Date & Time</th>
+              <th className="px-2 text-left">Event</th>
+              <th className="px-2 text-right">Order ID</th>
+              <th className="px-2 text-right">Money Exchanged</th>
+              <th className="px-2 text-left">Partner</th>
             </tr>
           </thead>
           <tbody>
             {logs.length > 0 ? (
               logs.map((log) => (
                 <tr className="log" key={log.dateTime.toISOString()}>
-                  <td>{log.dateTime.toUTCString()}</td>
-                  <td>{log.event}</td>
-                  <td>{log.orderId || "-"}</td>
-                  <td>{log.moneyExchanged}</td>
-                  <td>{log.partner?.name}</td>
+                  <td className="p-2 text-left">
+                    {log.dateTime.toLocaleString("default", {
+                      month: "2-digit",
+                      day: "2-digit",
+                      year: "numeric",
+                      hour: "2-digit",
+                      minute: "2-digit",
+                      second: "2-digit",
+                    })}
+                  </td>
+                  <td className="p-2 text-left">{log.event}</td>
+                  <td className="p-2 text-right">{log.orderId || "-"}</td>
+                  <td className="p-2 text-right">{log.moneyExchanged}</td>
+                  <td className="p-2 text-left">{log.partner?.name || "-"}</td>
                 </tr>
               ))
             ) : (
               <td colSpan={5}>
-                <div className="flex w-full flex-col gap-4">
+                <div className="flex w-full flex-col my-4 gap-4">
                   <div className="skeleton h-4 w-3/4"></div>
                   <div className="skeleton h-4 w-full"></div>
                   <div className="skeleton h-4 w-full"></div>
