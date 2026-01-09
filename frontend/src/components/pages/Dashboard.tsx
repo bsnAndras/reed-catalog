@@ -113,10 +113,10 @@ export const Dashboard = () => {
         </div>
         <figure className="w-full overflow-x-auto">
           <table className="stats-per-month table-auto m-auto p-2 border-collapse">
-              <col className="w-30"></col>
-              {Array.from<number>({ length: 12 }).map((i) => (
-                <col key={i} className=""></col>
-              ))}
+            <col className="w-30"></col>
+            {Array.from<number>({ length: 12 }).map((i) => (
+              <col key={i} className=""></col>
+            ))}
             <thead>
               <tr className="bg-amber-400">
                 <th>
