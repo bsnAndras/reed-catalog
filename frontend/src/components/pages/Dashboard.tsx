@@ -180,9 +180,9 @@ export const Dashboard = () => {
                       second: "2-digit",
                     })}
                   </td>
-                  <td className="p-2 text-left">{log.event}</td>
-                  <td className="p-2 text-right">{log.orderId || "-"}</td>
-                  <td className="p-2 text-right">{log.moneyExchanged}</td>
+                  <td className="p-2 text-left">{log.event || "<N/A>"}</td>
+                  <td className="p-2 text-right">{log.orderId ?? "-"}</td>
+                  <td className="p-2 text-right">{log.moneyExchanged ?? "0"}</td>
                   <td className="p-2 text-left">{log.partner?.name || "-"}</td>
                 </tr>
               ))
