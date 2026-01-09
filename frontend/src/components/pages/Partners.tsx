@@ -1,4 +1,52 @@
+import { useState } from "react";
+
 export const Partners = () => {
+  type Partner = {
+    id: number;
+    name: string;
+    orderInfo: OrderInfo;
+  };
+
+  type OrderInfo = {
+    debt: number;
+    lastOrderDate: Date;
+  };
+
+  const dummyPartners: Partner[] = [
+    {
+      id: 101,
+      name: "John Doe",
+      orderInfo: {
+        debt: 5000,
+        lastOrderDate: new Date("2024-06-20T14:30:00"),
+      },
+    },
+    {
+      id: 102,
+      name: "Jane Smith",
+      orderInfo: {
+        debt: 0,
+        lastOrderDate: new Date("2024-06-18T10:15:00"),
+      },
+    },
+    {
+      id: 103,
+      name: "Bob Johnson",
+      orderInfo: {
+        debt: 12000,
+        lastOrderDate: new Date("2024-06-22T09:45:00"),
+      },
+    },
+  ];
+
+  const [partners, setPartners] = useState<Partner[]>([]);
+
+  window.onload = () => {
+    setTimeout(() => {
+      setPartners(dummyPartners);
+    }, 2000);
+  };
+
   const handleAddPartner = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     //TODO: provide Add-partner functionality
@@ -27,23 +75,37 @@ export const Partners = () => {
           <col className="w-64"></col>
           <thead>
             <tr className="bg-amber-400">
-              <th>ID</th>
-              <th>Name</th>
-              <th>Debt</th>
-              <th>Last order date</th>
+              <th className="px-2 text-right">ID</th>
+              <th className="px-2 text-left">Name</th>
+              <th className="px-2 text-right">Debt</th>
+              <th className="px-2 text-right">Last order date</th>
             </tr>
           </thead>
           <tbody>
-            <tr></tr>
+            {partners.length > 0 ? (
+              partners.map((partner) => (
+                <tr key={partner.id}>
+                  <td className="p-2 text-right">{partner.id}</td>
+                  <td className="p-2 text-left">{partner.name}</td>
+                  <td className="p-2 text-right">{partner.orderInfo.debt}</td>
+                  <td className="p-2 text-right">
+                    {partner.orderInfo.lastOrderDate.toLocaleDateString()}
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <td colSpan={4}>
+                <div className="skeletons flex w-full flex-col my-4 gap-4">
+                  <div className="skeleton h-4 w-full"></div>
+                  <div className="skeleton h-4 w-3/4"></div>
+                  <div className="skeleton h-4 w-full"></div>
+                  <div className="skeleton h-4 w-full"></div>
+                  <div className="skeleton h-4 w-full"></div>
+                </div>
+              </td>
+            )}
           </tbody>
         </table>
-        <div className="skeletons flex w-4/5 flex-col gap-4">
-          <div className="skeleton h-4 w-full"></div>
-          <div className="skeleton h-4 w-3/4"></div>
-          <div className="skeleton h-4 w-full"></div>
-          <div className="skeleton h-4 w-full"></div>
-          <div className="skeleton h-4 w-full"></div>
-        </div>
       </section>
     </>
   );
