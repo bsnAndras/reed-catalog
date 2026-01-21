@@ -1,6 +1,6 @@
 package com.bsnandras.reedcatalog.controllers.server_side_rendering;
 
-import com.bsnandras.reedcatalog.models.Log;
+import com.bsnandras.reedcatalog.dtos.LogDTO;
 import com.bsnandras.reedcatalog.services.LogService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -16,7 +16,7 @@ public class LogController {
 
     @GetMapping({"/", "/log"})
     public String getLog(Model model) {
-        List<Log> logList = logService.showHistory();
+        List<LogDTO> logList = logService.showHistory();
 
         model.addAttribute("logList", logList);
         return "log";

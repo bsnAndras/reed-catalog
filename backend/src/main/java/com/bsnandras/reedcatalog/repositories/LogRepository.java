@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface LogRepository extends JpaRepository<Log, Date> {
     List<Log> findAllByOrderByDateTimeDesc();
+    Log findFirstByOrderByDateTimeDesc();
 }

@@ -1,10 +1,12 @@
 package com.bsnandras.reedcatalog.services;
 
+import com.bsnandras.reedcatalog.dtos.LogDTO;
 import com.bsnandras.reedcatalog.dtos.newOrder.NewOrderResponseDto;
 import com.bsnandras.reedcatalog.dtos.paymentReceived.PaymentResponseDto;
 import com.bsnandras.reedcatalog.models.Log;
 import com.bsnandras.reedcatalog.repositories.LogRepository;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -21,13 +23,17 @@ public class LogServiceImpl implements LogService {
     }
 
     @Override
-    public List<Log> showHistory() {
-        return logRepository.findAllByOrderByDateTimeDesc();
+    public List<LogDTO> showHistory() {
+
+        return logRepository.findAllByOrderByDateTimeDesc()
+                .stream()
+                .map(log -> LogDTO.fromLog(log))
+                .toList();
     }
 
     @Override
     public Log newOrderLog(NewOrderResponseDto response) {
-        Log lastLog = showHistory().getFirst();
+        Log lastLog = getLastLog();
         Log newLog = Log.builder()
                 .dateTime(new Date())
                 .event(response.message())
@@ -39,15 +45,19 @@ public class LogServiceImpl implements LogService {
 
     @Override
     public Log newOrderLog(PaymentResponseDto response) {
-        Log lastLog = showHistory().getFirst();
+        Log lastLog = getLastLog();
         int paymentAmount = response.moneyPaid();
         Log newLog = Log.builder()
                 .dateTime(new Date())
                 .event(response.message())
                 .order(response.updatedOrder())
                 .moneyExchange(paymentAmount)
-                .actualBalance(lastLog.getActualBalance() + paymentAmount)
+                .actualBalance(lastLog.getActualBalance()) //removed balance update
                 .build();
         return save(newLog);
+    }
+
+    private Log getLastLog() {
+        return logRepository.findFirstByOrderByDateTimeDesc();
     }
 }

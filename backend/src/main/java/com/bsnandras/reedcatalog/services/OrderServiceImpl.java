@@ -51,15 +51,8 @@ public class OrderServiceImpl implements OrderService {
     public OrderInfoDto getOrderByOrderId(Long orderId) {
         Order order = orderRepository.findById(orderId)
                 .orElseThrow(()-> new OrderNotFoundException("No order found under this id: " + orderId));
-        String partnerName = order.getPartner().getName();
 
-        return new OrderInfoDto(
-                orderId,
-                order.getDateOfPurchase(),
-                order.getTotalPrice(),
-                order.getAmountToPay(),
-                partnerName
-        );
+        return OrderInfoDto.fromOrder(order);
     }
 
     /**

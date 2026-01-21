@@ -31,7 +31,7 @@
                     <td th:text="*{#dates.format(dateOfPurchase(), 'yyyy-MM-dd')}"></td>
                     <td th:text="*{totalPrice()}"></td>
                     <td th:text="*{amountToPay()}"></td>
-                    <td th:text="*{partnerName()}"></td>
+                    <td th:text="*{partner().name()}"></td>
                 </tr>
             </table>
             <form action=# th:method="post"  th:object="${requestDto}" th:action="@{/order/new-payment}">
