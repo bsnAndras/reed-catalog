@@ -1,5 +1,6 @@
 package com.bsnandras.reedcatalog.dtos;
 
+import com.bsnandras.reedcatalog.dtos.links.PartnerLinkDTO;
 import com.bsnandras.reedcatalog.models.Order;
 import lombok.Builder;
 

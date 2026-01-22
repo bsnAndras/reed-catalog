@@ -30,10 +30,10 @@
                         <tr th:object="${log}">
                             <td th:text="*{dateTime}"></td>
                             <td th:text="*{event}"></td>
-                            <td th:text="*{order}?*{order.id}:'-'"></td>
-                            <td th:if="*{order}"><a th:text="*{order.partner.name}"
-                                    th:href="|@{/partner/profile}?id=*{order.partner.id}|"></a></td>
-                            <td th:if="!*{order}">-</td>
+                            <td th:text="*{eventId}?*{eventId}:'-'"></td>
+                            <td th:if="*{partnerDTO()}"><a th:text="*{partnerDTO.name}"
+                                    th:href="|@{/partner/profile}?id=*{partnerDTO().id()}|"></a></td>
+                            <td th:if="!*{partnerDTO()}">-</td>
                             <td th:text="*{moneyExchange}?*{moneyExchange}:'-'"></td>
                             <td th:text="*{actualBalance}"></td>
                         </tr>
