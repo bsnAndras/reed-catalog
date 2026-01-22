@@ -1,5 +1,4 @@
 #Local files for development and environment
-backend/HELP.md
 .env.*
 !.env.sample
 .gradle
