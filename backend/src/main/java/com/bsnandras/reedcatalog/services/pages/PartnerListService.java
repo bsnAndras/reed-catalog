@@ -1,4 +1,4 @@
-package com.bsnandras.reedcatalog.services;
+package com.bsnandras.reedcatalog.services.pages;
 
 import com.bsnandras.reedcatalog.models.Partner;
 

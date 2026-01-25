@@ -1,7 +1,7 @@
 package com.bsnandras.reedcatalog.unitTests;
 
 import com.bsnandras.reedcatalog.repositories.PartnerRepository;
-import com.bsnandras.reedcatalog.services.PartnerListServiceImpl;
+import com.bsnandras.reedcatalog.services.pages.PartnerListServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

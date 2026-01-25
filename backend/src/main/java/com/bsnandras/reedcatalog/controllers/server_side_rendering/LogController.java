@@ -1,7 +1,7 @@
 package com.bsnandras.reedcatalog.controllers.server_side_rendering;
 
 import com.bsnandras.reedcatalog.dtos.log.LogDTO;
-import com.bsnandras.reedcatalog.services.LogService;
+import com.bsnandras.reedcatalog.services.database.LogService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

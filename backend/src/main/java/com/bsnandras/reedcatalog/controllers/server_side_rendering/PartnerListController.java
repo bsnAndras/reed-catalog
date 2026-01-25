@@ -1,7 +1,7 @@
 package com.bsnandras.reedcatalog.controllers.server_side_rendering;
 
 import com.bsnandras.reedcatalog.models.Partner;
-import com.bsnandras.reedcatalog.services.PartnerListService;
+import com.bsnandras.reedcatalog.services.pages.PartnerListService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

@@ -1,4 +1,4 @@
-package com.bsnandras.reedcatalog.services;
+package com.bsnandras.reedcatalog.services.database;
 
 import com.bsnandras.reedcatalog.dtos.log.LogDTO;
 import com.bsnandras.reedcatalog.dtos.newOrder.NewOrderResponseDto;

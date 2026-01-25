@@ -1,7 +1,7 @@
 package com.bsnandras.reedcatalog.controllers.api;
 
 import com.bsnandras.reedcatalog.dtos.log.LogDTO;
-import com.bsnandras.reedcatalog.services.LogService;
+import com.bsnandras.reedcatalog.services.database.LogService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
