@@ -7,13 +7,14 @@ import com.bsnandras.reedcatalog.models.Partner;
 import java.util.List;
 
 public interface PartnerService {
+    //TODO: temporary redundant method (PartnerListService also has this), need to be figured out after refactoring
     Partner getPartner(Long id);
 
-    boolean addPartner(Partner partner);
+//    boolean addPartner(Partner partner);
 
     List<Order> getOrderHistory(Long partnerId);
 
-    List<Partner> showAllPartners();
+//    List<Partner> showAllPartners();
 
     PartnerPageResponseDto getPartnerPageData(Long partnerId);
 

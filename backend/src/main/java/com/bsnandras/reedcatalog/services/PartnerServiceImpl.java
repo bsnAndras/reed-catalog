@@ -23,31 +23,31 @@ public class PartnerServiceImpl implements PartnerService {
         return partnerRepository.findById(id).orElse(null);
     }
 
-    @Override
-    public boolean addPartner(Partner partner) throws IllegalArgumentException {
-        if (partner.getName().isBlank()) {
-            throw new IllegalArgumentException("Invalid partner name upon adding new Partner. Empty name is not allowed.");
-        }
-        if (partner.getBalance() < 0) {
-            throw new IllegalArgumentException("Invalid balance value upon adding new Partner. Balance should be non-negative.");
-        }
-        if (partnerRepository.existsByName(partner.getName())) {
-            throw new IllegalArgumentException(new AlreadyBoundException("Partner with this name already exists"));
-        }
-
-        partnerRepository.save(partner);
-        return true;
-    }
+//    @Override
+//    public boolean addPartner(Partner partner) throws IllegalArgumentException {
+//        if (partner.getName().isBlank()) {
+//            throw new IllegalArgumentException("Invalid partner name upon adding new Partner. Empty name is not allowed.");
+//        }
+//        if (partner.getBalance() < 0) {
+//            throw new IllegalArgumentException("Invalid balance value upon adding new Partner. Balance should be non-negative.");
+//        }
+//        if (partnerRepository.existsByName(partner.getName())) {
+//            throw new IllegalArgumentException(new AlreadyBoundException("Partner with this name already exists"));
+//        }
+//
+//        partnerRepository.save(partner);
+//        return true;
+//    }
 
     @Override
     public List<Order> getOrderHistory(Long partnerId) {
         return orderRepository.findAllByPartner(getPartner(partnerId));
     }
 
-    @Override
-    public List<Partner> showAllPartners() {
-        return partnerRepository.findAllByOrderByName();
-    }
+//    @Override
+//    public List<Partner> showAllPartners() {
+//        return partnerRepository.findAllByOrderByName();
+//    }
 
     @Override
     public PartnerPageResponseDto getPartnerPageData(Long partnerId) {

@@ -25,14 +25,14 @@ public class PartnerController {
         return "partner";
     }
 
-    @GetMapping("/partner-list")
-    public String getAllPartners(Model model) {
-        List<Partner> partnerList = partnerService.showAllPartners();
-
-        model.addAttribute("partnerList", partnerList);
-
-        return "partner-list";
-    }
+//    @GetMapping("/partner-list")
+//    public String getAllPartners(Model model) {
+//        List<Partner> partnerList = partnerService.showAllPartners();
+//
+//        model.addAttribute("partnerList", partnerList);
+//
+//        return "partner-list";
+//    }
 
     @GetMapping("/new-order")
     public String renderPlaceNewOrderForm(Model model, @RequestParam(name = "id") Long partnerId){

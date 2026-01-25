@@ -81,14 +81,6 @@ class PartnerServiceTest {
     }
 
     @Test
-    void shouldGetAllPartners() {
-        //When
-        partnerService.showAllPartners();
-        //Then
-        verify(partnerRepository).findAllByOrderByName();
-    }
-
-    @Test
     void getPartnerPageData() {
         //Given
         PartnerPageResponseDto dto = PartnerPageResponseDto.builder()
