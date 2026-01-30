@@ -10,55 +10,57 @@
 </head>
 
 <body>
-    <div class="container">
-        <h1>Paying order</h1>
-        <div class="form-container">
-            <table>
-                <thead>
-                    <tr>
-                        <th colspan="5">Order Details</th>
-                    </tr>
-                </thead>
-                <tr>
-                    <th>#</th>
-                    <th>Date of purchase</th>
-                    <th>Total Price</th>
-                    <th>Amount to pay</th>
-                    <th>Partner name</th>
-                </tr>
-                <tr th:object="${order}">
-                    <td th:text="*{id()}"></td>
-                    <td th:text="*{#dates.format(dateOfPurchase(), 'yyyy-MM-dd')}"></td>
-                    <td th:text="*{totalPrice()}"></td>
-                    <td th:text="*{amountToPay()}"></td>
-                    <td th:text="*{partner().name()}"></td>
-                </tr>
-            </table>
-            <form action=# th:method="post"  th:object="${requestDto}" th:action="@{/order/new-payment}">
-                <input style="display: none" type="number" th:field="*{orderId}" th:value="${order.id()}">
-                <div class="input-group"  th:object="${requestDto}">
-                    <label for="date">Date of transaction:</label>
-                    <input type="date" id="date" th:field="*{transactionDate}">
+<div class="container">
+    <h1>Paying order</h1>
+    <div class="form-container">
+        <table>
+            <thead>
+            <tr>
+                <th colspan="5">Order Details</th>
+            </tr>
+            </thead>
+            <tr>
+                <th>#</th>
+                <th>Date of purchase</th>
+                <th>Total Price</th>
+                <th>Amount to pay</th>
+                <th>Partner name</th>
+                <th>Notes</th>
+            </tr>
+            <tr th:object="${order}">
+                <td th:text="*{id()}"></td>
+                <td th:text="*{#dates.format(dateOfPurchase(), 'yyyy-MM-dd')}"></td>
+                <td th:text="*{totalPrice()}"></td>
+                <td th:text="*{amountToPay()}"></td>
+                <td th:text="*{partner().name()}"></td>
+                <td th:text="*{notes()}"></td>
+            </tr>
+        </table>
+        <form action=# th:method="post" th:object="${requestDto}" th:action="@{/partner/pay-order}">
+            <input style="display: none" type="number" th:field="*{orderId}" th:value="${order.id()}">
+            <div class="input-group" th:object="${requestDto}">
+                <label for="date">Date of transaction:</label>
+                <input type="date" id="date" th:field="*{transactionDate}">
+            </div>
+            <div class="input-group">
+                <label for="paid">Paid:</label>
+                <div>
+                    <input type="number" id="paid" th:field="${requestDto.paymentAmount}" required>
+                    <span th:text="Ft"></span>
                 </div>
-                <div class="input-group">
-                    <label for="paid">Paid:</label>
-                    <div>
-                        <input type="number" id="paid" th:field="${requestDto.paymentAmount}" required>
-                        <span th:text="Ft"></span>
-                    </div>
+            </div>
+            <div class="input-group">
+                <label for="note">Note:</label>
+                <div>
+                    <input type="text" id="note" th:field="${requestDto.note}">
                 </div>
-                <div class="input-group">
-                    <label for="note">Note:</label>
-                    <div>
-                        <input type="text" id="note" th:field="${requestDto.note}">
-                    </div>
-                </div>
-                <div class="button-container">
-                    <button type="submit" class="button-primary">Confirm Payment</button>
-                </div>
-            </form>
-        </div>
+            </div>
+            <div class="button-container">
+                <button type="submit" class="button-primary">Confirm Payment</button>
+            </div>
+        </form>
     </div>
+</div>
 </body>
 
 </html>

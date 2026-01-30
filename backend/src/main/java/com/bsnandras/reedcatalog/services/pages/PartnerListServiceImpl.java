@@ -15,14 +15,10 @@ public class PartnerListServiceImpl implements PartnerListService {
     private final PartnerRepository partnerRepository;
 
     @Override
-    public Partner getPartner(Long id) {
-        return partnerRepository.findById(id).orElse(null);
-    }
-
-    @Override
     public List<Partner> getAllPartners() {
         return partnerRepository.findAllByOrderByName();
     }
+
     @Override
     public boolean addPartner(Partner partner) throws IllegalArgumentException {
         if (partner.getName().isBlank()) {

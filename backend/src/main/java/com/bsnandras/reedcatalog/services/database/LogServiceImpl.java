@@ -26,7 +26,7 @@ public class LogServiceImpl implements LogService {
 
         return logRepository.findAllByOrderByDateTimeDesc()
                 .stream()
-                .map(log -> LogDTO.fromLog(log))
+                .map(LogDTO::fromLog)
                 .toList();
     }
 
@@ -47,7 +47,7 @@ public class LogServiceImpl implements LogService {
         Log lastLog = getLastLog();
         int paymentAmount = response.moneyPaid();
         Log newLog = Log.builder()
-                .dateTime(new Date())
+                .dateTime(new Date()) //TODO: should give the time of payment reception
                 .event(response.message())
                 .order(response.updatedOrder())
                 .moneyExchange(paymentAmount)

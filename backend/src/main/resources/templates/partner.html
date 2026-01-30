@@ -9,42 +9,43 @@
 </head>
 
 <body>
-    <div class="container">
-        <div class="header-container">
-            <a class="button-secondary" th:href="@{/}">Back to Home</a>
-            <p th:text="|Partner ID: ${partner.id()}|"></p>
-        </div>
-        <h1 th:text="${partner.name}"></h1>
-        <section th:text="|Current balance: ${partner.balance}|"></section>
-        <div class="table-container">
-            <div class="header-container">
-                <h2>Orders</h2>
-                <a class="button-primary" th:href="|@{/partner/new-order}?id=${partner.id()}|">Place new order</a>
-
-            </div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Date of purchase</th>
-                        <th>Total price</th>
-                        <th colspan="2">Amount to pay</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <th:block th:each="order : ${partner.orderList}">
-                        <tr th:object="${order}">
-                            <td th:text="*{id}"></td>
-                            <td th:text="*{dateOfPurchase}"></td>
-                            <td th:text="*{totalPrice}"></td>
-                            <td th:text="*{amountToPay}"></td>
-                            <td><a th:if="*{amountToPay>0}" class="button-primary" th:href="|@{/order/new-payment}?id=*{id}|">Pay Order</a></td>
-                        </tr>
-                    </th:block>
-                </tbody>
-            </table>
-        </div>
+<div class="container">
+    <div class="header-container">
+        <a class="button-secondary" th:href="@{/}">Back to Home</a>
+        <p th:text="|Partner ID: ${partner.id()}|"></p>
     </div>
+    <h1 th:text="${partner.name}"></h1>
+    <section th:text="|Current balance: ${partner.balance}|"></section>
+    <div class="table-container">
+        <div class="header-container">
+            <h2>Orders</h2>
+            <a class="button-primary" th:href="|@{/partner/new-order}?id=${partner.id()}|">Place new order</a>
+
+        </div>
+        <table>
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Date of purchase</th>
+                <th>Total price</th>
+                <th colspan="2">Amount to pay</th>
+            </tr>
+            </thead>
+            <tbody>
+            <th:block th:each="order : ${partner.orderList}">
+                <tr th:object="${order}">
+                    <td th:text="*{id}"></td>
+                    <td th:text="*{dateOfPurchase}"></td>
+                    <td th:text="*{totalPrice}"></td>
+                    <td th:text="*{amountToPay}"></td>
+                    <td><a th:if="*{amountToPay>0}" class="button-primary"
+                           th:href="|@{/partner/pay-order}?id=*{id}|">Pay Order</a></td>
+                </tr>
+            </th:block>
+            </tbody>
+        </table>
+    </div>
+</div>
 </body>
 
 </html>
