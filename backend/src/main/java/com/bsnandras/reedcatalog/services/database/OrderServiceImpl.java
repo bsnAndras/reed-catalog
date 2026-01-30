@@ -30,6 +30,7 @@ public class OrderServiceImpl implements OrderService {
                 .partner(partner)
                 .totalPrice(requestDto.totalPrice())
                 .amountToPay(requestDto.totalPrice())
+                .notes(requestDto.notes())
                 .build();
 
         orderRepository.save(newOrder);

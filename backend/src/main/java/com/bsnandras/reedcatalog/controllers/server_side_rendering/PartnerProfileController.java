@@ -1,5 +1,6 @@
 package com.bsnandras.reedcatalog.controllers.server_side_rendering;
 
+import com.bsnandras.reedcatalog.dtos.links.PartnerLinkDTO;
 import com.bsnandras.reedcatalog.dtos.newOrder.NewOrderRequestDto;
 import com.bsnandras.reedcatalog.dtos.paymentReceived.PaymentRequestDto;
 import com.bsnandras.reedcatalog.services.pages.PartnerProfileService;
@@ -28,8 +29,11 @@ public class PartnerProfileController {
 
     @GetMapping("/new-order")
     public String renderNewOrderForm(Model model, @RequestParam(name = "id") Long partnerId) {
-        model.addAttribute("partnerName", service.getPartnerName(partnerId));
-        model.addAttribute("requestDto", new NewOrderRequestDto(partnerId, 0));
+        model.addAttribute("partner", PartnerLinkDTO.fromPartner(service.getPartner(partnerId)));
+        model.addAttribute("requestDto", NewOrderRequestDto.builder()
+                .partnerId(partnerId)
+                .build()
+        );
 
         return "new-order-form";
     }

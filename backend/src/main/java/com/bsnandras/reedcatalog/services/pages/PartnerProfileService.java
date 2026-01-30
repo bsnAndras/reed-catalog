@@ -22,8 +22,6 @@ public interface PartnerProfileService {
 
     PartnerPageResponseDto getPartnerPageData(Long partnerId);
 
-    String getPartnerName(Long partnerId);
-
     NewOrderResponseDto placeNewOrder(NewOrderRequestDto requestDto);
 
     OrderInfoDto getOrderByOrderId(Long orderId);

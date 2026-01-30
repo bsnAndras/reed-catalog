@@ -57,11 +57,6 @@ public class PartnerProfileServiceImpl implements PartnerProfileService {
     }
 
     @Override
-    public String getPartnerName(Long partnerId) {
-        return getPartner(partnerId).getName();
-    }
-
-    @Override
     public NewOrderResponseDto placeNewOrder(NewOrderRequestDto requestDto) {
         Partner partner = getPartner(requestDto.partnerId());
         Order newOrder = orderService.placeNewOrder(partner, requestDto);

@@ -10,29 +10,31 @@
 </head>
 
 <body>
-    <div class="container">
-        <div class="form-container">
-            <h1>Placing new order</h1>
-            <form th:method="'post'" th:object="${requestDto}" th:action="@{/partner/new-order}">
-                <div class="input-group">
-                    <label for="partner">Partner:</label>
-                    <select th:field="*{partnerId}" name="partnerId" id="partner">
-                        <option th:text="${partnerName}" th:value="*{partnerId}"></option>
-                    </select>
+<div class="container">
+    <div class="form-container">
+        <h1>Placing new order</h1>
+        <form th:method="'post'" th:object="${requestDto}" th:action="@{/partner/new-order}">
+            <div class="input-group">
+                <label for="partner">Partner:</label>
+                <select th:field="*{partnerId}" name="partnerId" id="partner">
+                    <option th:text="${partner.name()}" th:value="*{partnerId}"></option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label for="price">Total Price:</label>
+                <div>
+                    <input type="number" id="price" th:field="*{totalPrice}" required>
+                    <span th:text="Ft"></span>
                 </div>
-                <div class="input-group">
-                    <label for="price">Total Price:</label>
-                    <div>
-                        <input type="number" id="price" th:field="*{totalPrice}" required>
-                        <span th:text="Ft"></span>
-                    </div>
-                </div>
-                <div class="button-container">
-                    <button type="submit" class="button-primary">Place Order</button>
-                </div>
-            </form>
-        </div>
+                <label for="notes">Notes: </label>
+                <input type="text" id="notes" th:field="*{notes}">
+            </div>
+            <div class="button-container">
+                <button type="submit" class="button-primary">Place Order</button>
+            </div>
+        </form>
     </div>
+</div>
 </body>
 
 </html>
