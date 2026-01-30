@@ -45,36 +45,6 @@ public class OrderServiceImpl implements OrderService {
     }
 
     /**
-     * The method for paying an order from partner's excess money from his/her account
-     *
-     * @param order The Order you wish to pay from Partner balance
-     * @return the Order after paying from the partner balance
-     */
-    public Order payOrderFromPartnerBalance(Order order) {
-        Partner partner = order.getPartner();
-        int currentBalance = partner.getBalance();
-        int partnerDebt = order.getAmountToPay();
-
-        int amountToBePayed;
-
-        if ((currentBalance <= 0 && partnerDebt >= 0) || partnerDebt == 0) {
-            return order;
-        }
-        if (partnerDebt < 0) {
-            amountToBePayed = partnerDebt;
-        } else {
-            amountToBePayed = Math.min(currentBalance, partnerDebt);
-        }
-
-//        partnerService.setBalance(partner.getId(),
-//                currentBalance - amountToBePayed);
-
-        order.setAmountToPay(partnerDebt - amountToBePayed);
-
-        return order;
-    }
-
-    /**
      * Pays the order with the money the user paid. Returns the remaining debt on the order.
      *
      * @param order     the order to be paid
@@ -93,7 +63,6 @@ public class OrderServiceImpl implements OrderService {
     public int payOrder(PaymentRequestDto requestDto) {
         Order order = getOrder(requestDto.orderId());
 
-        order = payOrderFromPartnerBalance(order);
         int remainingDebt = payOrderFromNewMoney(order, requestDto.paymentAmount());
 
         orderRepository.save(order);

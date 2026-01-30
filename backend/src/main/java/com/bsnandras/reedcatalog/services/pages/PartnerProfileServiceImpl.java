@@ -77,6 +77,7 @@ public class PartnerProfileServiceImpl implements PartnerProfileService {
     public PaymentResponseDto payOrder(PaymentRequestDto requestDto) {
         Order order = orderService.getOrder(requestDto.orderId());
         int remainingDebt = orderService.payOrder(requestDto);
+
         String responseMessage;
 
         if (remainingDebt > 0) {
@@ -94,6 +95,7 @@ public class PartnerProfileServiceImpl implements PartnerProfileService {
                 .message(responseMessage)
                 .moneyPaid(requestDto.paymentAmount())
                 .build();
+
         logService.newOrderLog(responseDto);
 
         return responseDto;
