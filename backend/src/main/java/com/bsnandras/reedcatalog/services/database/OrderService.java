@@ -1,20 +1,20 @@
 package com.bsnandras.reedcatalog.services.database;
 
-import com.bsnandras.reedcatalog.dtos.newOrder.NewOrderRequestDto;
-import com.bsnandras.reedcatalog.dtos.paymentReceived.PaymentRequestDto;
 import com.bsnandras.reedcatalog.errors.OrderNotFoundException;
 import com.bsnandras.reedcatalog.models.Order;
-import com.bsnandras.reedcatalog.models.Partner;
 
 public interface OrderService {
-    Order placeNewOrder(Partner partner, NewOrderRequestDto requestDto);
+    Order saveOrder(Order order);
 
     Order getOrder(Long orderId);
 
     /**
-     * This method updates the order with the received payment information and returns the remaining amount to pay.
+     * Pays the order with the given amount of money. Returns the remaining debt on the order.
      *
-     * @return the remaining amount to pay after the payment is received
+     * @param order     the order to be paid
+     * @param moneyPaid the money, to be paid
+     * @return the remaining debt on the order, that is still to be paid. If the returned value is negative,
+     * it means excess money was paid.
      */
-    int payOrder(PaymentRequestDto requestDto) throws OrderNotFoundException;
+    int payOrder(Order order, int moneyPaid) throws OrderNotFoundException;
 }

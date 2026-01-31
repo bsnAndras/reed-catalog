@@ -16,8 +16,6 @@ public interface PartnerProfileService {
 
     Partner getPartner(Long id);
 
-    int setBalance(Long partnerId, int newBalance);
-
     List<Order> getOrderHistory(Long partnerId);
 
     PartnerPageResponseDto getPartnerPageData(Long partnerId);
