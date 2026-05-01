@@ -7,8 +7,8 @@ export const Partners = () => {
       id: 101,
       name: "John Doe",
       orderInfo: {
-        debt: 5000,
-        lastOrderDate: new Date("2024-06-20T14:30:00"),
+        debt: 10000,
+        lastOrderDate: new Date("2026-03-25T14:30:00"),
       },
     },
     {

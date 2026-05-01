@@ -6,6 +6,7 @@ import "./index.css";
 import { App } from "./App";
 import { Dashboard } from "./components/pages/Dashboard";
 import { Partners } from "./components/pages/Partners";
+import { PartnerProfile } from "./components/pages/PartnerProfile";
 
 const router = createBrowserRouter([
   {
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
       {
         path: "partners",
         Component: Partners,
+      },
+      {
+        path: "partner/:id",
+        Component: PartnerProfile,
       },
     ],
   },
