@@ -59,10 +59,12 @@ export const Partners = () => {
           </span>
         </div>
         <table className="table-auto w-4/5 m-2 overflow-x-scroll border-collapse">
-          <col className="w-20"></col>
-          <col className="w-52"></col>
-          <col className="w-32"></col>
-          <col className="w-64"></col>
+          <colgroup>
+            <col className="w-20"></col>
+            <col className="w-52"></col>
+            <col className="w-32"></col>
+            <col className="w-64"></col>
+          </colgroup>
           <thead>
             <tr className="bg-amber-400">
               <th className="px-2 text-right">ID</th>
@@ -84,15 +86,17 @@ export const Partners = () => {
                 </tr>
               ))
             ) : (
-              <td colSpan={4}>
-                <div className="skeletons flex w-full flex-col my-4 gap-4">
-                  <div className="skeleton h-4 w-full"></div>
-                  <div className="skeleton h-4 w-3/4"></div>
-                  <div className="skeleton h-4 w-full"></div>
-                  <div className="skeleton h-4 w-full"></div>
-                  <div className="skeleton h-4 w-full"></div>
-                </div>
-              </td>
+              <tr>
+                <td colSpan={4}>
+                  <div className="skeletons flex w-full flex-col my-4 gap-4">
+                    <div className="skeleton h-4 w-full"></div>
+                    <div className="skeleton h-4 w-3/4"></div>
+                    <div className="skeleton h-4 w-full"></div>
+                    <div className="skeleton h-4 w-full"></div>
+                    <div className="skeleton h-4 w-full"></div>
+                  </div>
+                </td>
+              </tr>
             )}
           </tbody>
         </table>

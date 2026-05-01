@@ -2,7 +2,6 @@ import { useState } from "react";
 import type { Log } from "../../types";
 
 export const Dashboard = () => {
-
   // Setting up current date info
   const currentDate = new Date();
   const currYear = currentDate.getFullYear();
@@ -102,10 +101,12 @@ export const Dashboard = () => {
         </div>
         <figure className="w-full overflow-x-auto">
           <table className="stats-per-month table-auto m-auto p-2 border-collapse">
-            <col className="w-30"></col>
-            {Array.from<number>({ length: 12 }).map((i) => (
-              <col key={i} className=""></col>
-            ))}
+            <colgroup>
+              <col key="1000" className="w-30"></col>
+              {Array.from({ length: 12 }, (_, i) => i + 1).map((i) => (
+                <col key={i} className="w-30"></col>
+              ))}
+            </colgroup>
             <thead>
               <tr className="bg-amber-400">
                 <th>
@@ -178,14 +179,16 @@ export const Dashboard = () => {
                 </tr>
               ))
             ) : (
-              <td colSpan={5}>
-                <div className="flex w-full flex-col my-4 gap-4">
-                  <div className="skeleton h-4 w-3/4"></div>
-                  <div className="skeleton h-4 w-full"></div>
-                  <div className="skeleton h-4 w-full"></div>
-                  <div className="skeleton h-4 w-full"></div>
-                </div>
-              </td>
+              <tr>
+                <td colSpan={5}>
+                  <div className="flex w-full flex-col my-4 gap-4">
+                    <div className="skeleton h-4 w-3/4"></div>
+                    <div className="skeleton h-4 w-full"></div>
+                    <div className="skeleton h-4 w-full"></div>
+                    <div className="skeleton h-4 w-full"></div>
+                  </div>
+                </td>
+              </tr>
             )}
           </tbody>
         </table>

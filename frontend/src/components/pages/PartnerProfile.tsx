@@ -70,11 +70,13 @@ export const PartnerProfile = () => {
           </span>
         </div>
         <table className="table-auto w-4/5 m-2 overflow-x-scroll border-collapse">
-          <col className="w-18"></col>
-          <col className="w-48"></col>
-          <col className="w-28"></col>
-          <col className="w-64"></col>
-          <col className="w-28"></col>
+          <colgroup>
+            <col className="w-18"></col>
+            <col className="w-48"></col>
+            <col className="w-28"></col>
+            <col className="w-64"></col>
+            <col className="w-28"></col>
+          </colgroup>
           <thead>
             <tr className="bg-amber-400">
               <th className="px-2 text-right">Order ID</th>
@@ -106,15 +108,17 @@ export const PartnerProfile = () => {
                 </tr>
               ))
             ) : (
-              <td colSpan={4}>
-                <div className="skeletons flex w-full flex-col my-4 gap-4">
-                  <div className="skeleton h-4 w-full"></div>
-                  <div className="skeleton h-4 w-3/4"></div>
-                  <div className="skeleton h-4 w-full"></div>
-                  <div className="skeleton h-4 w-full"></div>
-                  <div className="skeleton h-4 w-full"></div>
-                </div>
-              </td>
+              <tr>
+                <td colSpan={4}>
+                  <div className="skeletons flex w-full flex-col my-4 gap-4">
+                    <div className="skeleton h-4 w-full"></div>
+                    <div className="skeleton h-4 w-3/4"></div>
+                    <div className="skeleton h-4 w-full"></div>
+                    <div className="skeleton h-4 w-full"></div>
+                    <div className="skeleton h-4 w-full"></div>
+                  </div>
+                </td>
+              </tr>
             )}
           </tbody>
         </table>
