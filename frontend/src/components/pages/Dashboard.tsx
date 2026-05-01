@@ -1,18 +1,7 @@
 import { useState } from "react";
+import type { Log } from "../../types";
 
 export const Dashboard = () => {
-  type Log = {
-    dateTime: Date;
-    event: string;
-    orderId: number | null;
-    moneyExchanged: number;
-    partner: LogPartner | null;
-  };
-
-  type LogPartner = {
-    id: number;
-    name: string;
-  };
 
   // Setting up current date info
   const currentDate = new Date();

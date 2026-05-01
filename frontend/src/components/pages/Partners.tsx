@@ -1,20 +1,7 @@
 import { useState } from "react";
+import type { PartnerListItem } from "../../types";
 
 export const Partners = () => {
-  //for a basic name info
-  interface PartnerBase {
-    id: number;
-    name: string;
-  }
-
-  // for the list display
-  interface PartnerListItem extends PartnerBase {
-    orderInfo: {
-      debt: number;
-      lastOrderDate: Date;
-    };
-  }
-  
   const dummyPartners: PartnerListItem[] = [
     {
       id: 101,
