@@ -1,18 +1,21 @@
 import { useState } from "react";
 
 export const Partners = () => {
-  type Partner = {
+  //for a basic name info
+  interface PartnerBase {
     id: number;
     name: string;
-    orderInfo: OrderInfo;
-  };
+  }
 
-  type OrderInfo = {
-    debt: number;
-    lastOrderDate: Date;
-  };
-
-  const dummyPartners: Partner[] = [
+  // for the list display
+  interface PartnerListItem extends PartnerBase {
+    orderInfo: {
+      debt: number;
+      lastOrderDate: Date;
+    };
+  }
+  
+  const dummyPartners: PartnerListItem[] = [
     {
       id: 101,
       name: "John Doe",
@@ -39,7 +42,7 @@ export const Partners = () => {
     },
   ];
 
-  const [partners, setPartners] = useState<Partner[]>([]);
+  const [partners, setPartners] = useState<PartnerListItem[]>([]);
 
   window.onload = () => {
     setTimeout(() => {
