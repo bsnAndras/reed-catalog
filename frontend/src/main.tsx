@@ -5,12 +5,14 @@ import { RouterProvider } from "react-router/dom";
 import "./index.css";
 import { App } from "./App";
 import { Dashboard } from "./components/pages/Dashboard";
-import { Partners } from "./components/pages/Partners";
 import { PartnerProfile } from "./components/pages/PartnerProfile";
+import { Partners } from "./components/pages/Partners";
+import { RootErrorBoundary } from "./components/pages/RootErrorBoundary";
 
 const router = createBrowserRouter([
   {
     path: "/",
+    ErrorBoundary: RootErrorBoundary,
     Component: App,
     children: [
       {
