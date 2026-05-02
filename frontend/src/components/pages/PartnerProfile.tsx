@@ -1,4 +1,6 @@
+import { useState } from "react";
 import type { Order, PartnerDetails } from "../../types";
+import { useLocation } from "react-router";
 
 export const PartnerProfile = () => {
   // Dummy data for demonstration purposes
@@ -39,11 +41,16 @@ export const PartnerProfile = () => {
     },
   ] as Order[];
 
-  // Simulate fetching partner details and orders
-  const partner: PartnerDetails = dummyPartner;
-  partner.orderList = dummyOrders;
+  const partner: PartnerDetails = useLocation().state?.partner || null;
+  const [orders, setOrders] = useState<Order[]>([]);
+  // partner.orderList = orders;
 
-  let orders = partner.orderList;
+  // Simulate fetching partner details and orders
+  window.onload = () => {
+    setTimeout(() => {
+      setOrders(dummyOrders);
+    }, 1500);
+  };
 
   const handleAddNewOrder = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -51,77 +58,111 @@ export const PartnerProfile = () => {
 
   const handlePayOrder = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-  }
+  };
 
-  return (
-    <>
-      <h1 className="text-3xl font-bold text-center my-5">{partner.name}</h1>
-      <section className="log m-auto max-w-210 xl:max-w-3/5 flex flex-col items-center gap-4 my-4">
-        <div className="w-4/5 flex justify-end">
-          <span>
-            <button
-              type="button"
-              className="btn btn-primary btn-disabled"
-              onClick={handleAddNewOrder}
-            >
-              Add new order
-            </button>
-          </span>
-        </div>
-        <table className="table-auto w-4/5 m-2 overflow-x-scroll border-collapse">
-          <thead>
-            <tr className="bg-amber-400">
-              <th className="px-2 text-right">Order ID</th>
-              <th className="px-2 text-left">Date of purchase</th>
-              <th className="px-2 text-right">Amount to pay</th>
-              <th className="px-2 text-right">Notes</th>
-              <th className="px-2"></th>
-            </tr>
-          </thead>
-          <tbody>
-            {orders.length > 0 ? (
-              orders.map((order) => (
-                <tr key={order.id}>
-                  <td className="p-2 text-right">{order.id}</td>
-                  <td className="p-2 text-right">
-                    {order.dateOfPurchase.toLocaleDateString("default", {
-                      month: "2-digit",
-                      day: "2-digit",
-                      year: "numeric",
-                      hour: "2-digit",
-                      minute: "2-digit",
-                      second: "2-digit",
-                    })}
-                  </td>
-                  <td className="p-2 text-right">{order.amountToPay}</td>
-                  <td className="p-2 text-right">{order.notes}</td>
-                  <td className="p-2 text-right">
-                    <button
-                      type="button"
-                      className="btn btn-secondary disabled:bg-gray-300"
-                      onClick={handlePayOrder}
-                    >
-                      Pay Order
-                    </button>
+  if (partner) {
+    return (
+      <>
+        <h1 className="text-3xl font-bold text-center my-5">{partner.name}</h1>
+        <section className="midsection m-auto max-w-210 xl:max-w-3/5 flex flex-col items-center gap-4 my-4">
+          <div className="w-4/5 flex justify-between">
+            <span>
+              <button
+                type="button"
+                className="btn btn-soft btn-neutral"
+                onClick={() => window.history.back()}
+              >
+                Go back
+              </button>
+            </span>
+            <div className="stats">
+              <ul>
+                <li>Account Balance: {partner.balanceSummary.balance}</li>
+                <li>Total Debt: {partner.balanceSummary.debt}</li>
+              </ul>
+            </div>
+            <span>
+              <button
+                type="button"
+                className="btn btn-primary btn-disabled"
+                onClick={handleAddNewOrder}
+              >
+                Add new order
+              </button>
+            </span>
+          </div>
+        </section>
+        <section className="log m-auto max-w-210 xl:max-w-3/5 flex flex-col items-center gap-4 my-4">
+          <table className="table-auto w-4/5 m-2 overflow-x-scroll border-collapse">
+            <thead>
+              <tr className="bg-amber-400">
+                <th className="px-2 text-right">Order ID</th>
+                <th className="px-2 text-right">Date of purchase</th>
+                <th className="px-2 text-right">Amount to pay</th>
+                <th className="px-2 text-right">Notes</th>
+                <th className="px-2"></th>
+              </tr>
+            </thead>
+            <tbody>
+              {orders.length > 0 ? (
+                orders.map((order) => (
+                  <tr key={order.id}>
+                    <td className="p-2 text-right">{order.id}</td>
+                    <td className="p-2 text-right">
+                      {order.dateOfPurchase.toLocaleDateString("default", {
+                        month: "2-digit",
+                        day: "2-digit",
+                        year: "numeric",
+                        hour: "2-digit",
+                        minute: "2-digit",
+                        second: "2-digit",
+                      })}
+                    </td>
+                    <td className="p-2 text-right">{order.amountToPay}</td>
+                    <td className="p-2 text-right">{order.notes}</td>
+                    <td className="p-2 text-right">
+                      <button
+                        type="button"
+                        className="btn btn-secondary disabled:bg-gray-300"
+                        onClick={handlePayOrder}
+                      >
+                        Pay Order
+                      </button>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan={4}>
+                    <div className="skeletons flex w-full flex-col my-4 gap-4">
+                      <div className="skeleton h-4 w-full"></div>
+                      <div className="skeleton h-4 w-3/4"></div>
+                      <div className="skeleton h-4 w-full"></div>
+                      <div className="skeleton h-4 w-full"></div>
+                      <div className="skeleton h-4 w-full"></div>
+                    </div>
                   </td>
                 </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan={4}>
-                  <div className="skeletons flex w-full flex-col my-4 gap-4">
-                    <div className="skeleton h-4 w-full"></div>
-                    <div className="skeleton h-4 w-3/4"></div>
-                    <div className="skeleton h-4 w-full"></div>
-                    <div className="skeleton h-4 w-full"></div>
-                    <div className="skeleton h-4 w-full"></div>
-                  </div>
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
-      </section>
-    </>
-  );
+              )}
+            </tbody>
+          </table>
+        </section>
+      </>
+    );
+  } else {
+    return (
+      <div className="flex flex-col items-center gap-4 my-4">
+        <h1 className="text-3xl font-bold text-center my-5">
+          Partner not found
+        </h1>
+        <button
+          type="button"
+          className="btn btn-soft btn-neutral"
+          onClick={() => window.history.back()}
+        >
+          Go back
+        </button>
+      </div>
+    );
+  }
 };

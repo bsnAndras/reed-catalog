@@ -1,5 +1,6 @@
 import { useState } from "react";
-import type { PartnerListItem } from "../../types";
+import { useNavigate } from "react-router";
+import type { PartnerListItem, PartnerDetails } from "../../types";
 
 export const Partners = () => {
   const dummyPartners: PartnerListItem[] = [
@@ -29,17 +30,36 @@ export const Partners = () => {
     },
   ];
 
+  const navigate = useNavigate();
   const [partners, setPartners] = useState<PartnerListItem[]>([]);
 
   window.onload = () => {
     setTimeout(() => {
       setPartners(dummyPartners);
-    }, 2000);
+    }, 1500);
   };
 
   const handleAddPartner = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     //TODO: provide Add-partner functionality
+  };
+
+  const handlePartnerRowClick = (
+    e: React.MouseEvent<HTMLTableRowElement>,
+    partner: PartnerListItem,
+  ) => {
+    e.preventDefault();
+    navigate(`/partner/id=${partner.id}`, { state: {
+      partner: {
+        id: partner.id,
+        name: partner.name,
+        orderList: [],
+        balanceSummary: {
+          debt: partner.orderInfo.debt,
+          balance: 0,
+        },
+      } as PartnerDetails,
+    } });
   };
 
   return (
@@ -70,7 +90,11 @@ export const Partners = () => {
           <tbody>
             {partners.length > 0 ? (
               partners.map((partner) => (
-                <tr key={partner.id}>
+                <tr
+                  key={partner.id}
+                  className="hover:bg-amber-100 cursor-pointer"
+                  onClick={(e) => handlePartnerRowClick(e, partner)}
+                >
                   <td className="p-2 text-right">{partner.id}</td>
                   <td className="p-2 text-left">{partner.name}</td>
                   <td className="p-2 text-right">{partner.orderInfo.debt}</td>
