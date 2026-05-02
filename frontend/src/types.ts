@@ -16,31 +16,32 @@ export interface PartnerListItem extends PartnerBase {
 
 // for the page display
 export interface PartnerDetails extends PartnerBase {
-    orderList: Order[];
-    balanceSummary: {
-      balance: number;
-      debt: number;
-  };}
+  orderList: Order[];
+  balanceSummary: {
+    balance: number;
+    debt: number;
+  };
+}
 
 //----------------------------------------------------------------------
 //Orders
 
 export interface Order {
-    id: number;
-    dateOfPurchase: Date;
-    totalPrice: number;
-    amountToPay: number;
-    notes: string;
-    partner: PartnerBase;
+  id: number;
+  dateOfPurchase: Date;
+  totalPrice: number;
+  amountToPay: number;
+  notes: string;
+  partner: PartnerBase;
 }
 
 //------------------------------------------------------------------------
 //Logs
 
 export type Log = {
-    dateTime: Date;
-    event: string;
-    orderId: number | null;
-    moneyExchanged: number;
-    partner: PartnerBase | null;
-  };
+  dateTime: Date;
+  event: string;
+  orderId: number | null;
+  moneyExchanged: number;
+  partner: PartnerBase | null;
+};

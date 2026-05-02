@@ -68,7 +68,7 @@ export const Dashboard = () => {
   window.onload = () => {
     setTimeout(() => {
       setLogs(dummyLogs);
-    }, 5000);
+    }, 3000);
   };
 
   return (

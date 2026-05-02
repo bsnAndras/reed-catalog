@@ -59,12 +59,6 @@ export const Partners = () => {
           </span>
         </div>
         <table className="table-auto w-4/5 m-2 overflow-x-scroll border-collapse">
-          <colgroup>
-            <col className="w-20"></col>
-            <col className="w-52"></col>
-            <col className="w-32"></col>
-            <col className="w-64"></col>
-          </colgroup>
           <thead>
             <tr className="bg-amber-400">
               <th className="px-2 text-right">ID</th>

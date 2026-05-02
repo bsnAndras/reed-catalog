@@ -61,22 +61,14 @@ export const PartnerProfile = () => {
           <span>
             <button
               type="button"
-              className="btn btn-primary disabled:bg-gray-300"
+              className="btn btn-primary btn-disabled"
               onClick={handleAddNewOrder}
-              disabled
             >
               Add new order
             </button>
           </span>
         </div>
         <table className="table-auto w-4/5 m-2 overflow-x-scroll border-collapse">
-          <colgroup>
-            <col className="w-18"></col>
-            <col className="w-48"></col>
-            <col className="w-28"></col>
-            <col className="w-64"></col>
-            <col className="w-28"></col>
-          </colgroup>
           <thead>
             <tr className="bg-amber-400">
               <th className="px-2 text-right">Order ID</th>
@@ -91,8 +83,15 @@ export const PartnerProfile = () => {
               orders.map((order) => (
                 <tr key={order.id}>
                   <td className="p-2 text-right">{order.id}</td>
-                  <td className="p-2 text-left">
-                    {order.dateOfPurchase.toLocaleDateString()}
+                  <td className="p-2 text-right">
+                    {order.dateOfPurchase.toLocaleDateString("default", {
+                      month: "2-digit",
+                      day: "2-digit",
+                      year: "numeric",
+                      hour: "2-digit",
+                      minute: "2-digit",
+                      second: "2-digit",
+                    })}
                   </td>
                   <td className="p-2 text-right">{order.amountToPay}</td>
                   <td className="p-2 text-right">{order.notes}</td>
