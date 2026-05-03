@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-import type { PartnerListItem, PartnerDetails } from "../../types";
+import type { PartnerDetails, PartnerListItem } from "../../types";
 
 export const Partners = () => {
   const dummyPartners: PartnerListItem[] = [
@@ -33,11 +33,11 @@ export const Partners = () => {
   const navigate = useNavigate();
   const [partners, setPartners] = useState<PartnerListItem[]>([]);
 
-  window.onload = () => {
+  useEffect(() => {
     setTimeout(() => {
       setPartners(dummyPartners);
-    }, 1500);
-  };
+    }, 1000);
+  });
 
   const handleAddPartner = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -49,17 +49,19 @@ export const Partners = () => {
     partner: PartnerListItem,
   ) => {
     e.preventDefault();
-    navigate(`/partner/id=${partner.id}`, { state: {
-      partner: {
-        id: partner.id,
-        name: partner.name,
-        orderList: [],
-        balanceSummary: {
-          debt: partner.orderInfo.debt,
-          balance: 0,
-        },
-      } as PartnerDetails,
-    } });
+    navigate(`/partner/id=${partner.id}`, {
+      state: {
+        partner: {
+          id: partner.id,
+          name: partner.name,
+          orderList: [],
+          balanceSummary: {
+            debt: partner.orderInfo.debt,
+            balance: 0,
+          },
+        } as PartnerDetails,
+      },
+    });
   };
 
   return (

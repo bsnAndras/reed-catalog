@@ -1,6 +1,6 @@
-import { useState } from "react";
-import type { Order, PartnerDetails } from "../../types";
+import { useEffect, useState } from "react";
 import { useLocation } from "react-router";
+import type { Order, PartnerDetails } from "../../types";
 
 export const PartnerProfile = () => {
   // Dummy data for demonstration purposes
@@ -46,11 +46,11 @@ export const PartnerProfile = () => {
   // partner.orderList = orders;
 
   // Simulate fetching partner details and orders
-  window.onload = () => {
+  useEffect(() => {
     setTimeout(() => {
       setOrders(dummyOrders);
-    }, 1500);
-  };
+    }, 1000);
+  });
 
   const handleAddNewOrder = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();

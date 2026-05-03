@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { Log } from "../../types";
 
 export const Dashboard = () => {
@@ -65,11 +65,11 @@ export const Dashboard = () => {
   ];
 
   // Simulate data loading after 5 seconds
-  window.onload = () => {
+  useEffect(() => {
     setTimeout(() => {
       setLogs(dummyLogs);
-    }, 3000);
-  };
+    }, 1000);
+  });
 
   return (
     <>
