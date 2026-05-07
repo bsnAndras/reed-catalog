@@ -47,7 +47,7 @@ public class PartnerProfileController {
     @GetMapping("/pay-order")
     public String renderNewPaymentForm(Model model, @RequestParam(name = "id") Long orderId) {
         model.addAttribute("order", service.getOrderByOrderId(orderId));
-        model.addAttribute("requestDto", new PaymentRequestDto(orderId, 1, new Date(), ""));
+        model.addAttribute("requestDto", new PaymentRequestDto(orderId, 1, new Date()));
         return "pay-order-form";
     }
 

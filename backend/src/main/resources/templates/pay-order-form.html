@@ -3,64 +3,58 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" th:href="@{/styles.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/form-styles.css}">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <link rel="stylesheet" th:href="@{/styles.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/form-styles.css}" type="text/css">
     <title>Reed Catalog</title>
 </head>
 
 <body>
-<div class="container">
-    <h1>Paying order</h1>
-    <div class="form-container">
-        <table>
-            <thead>
-            <tr>
-                <th colspan="5">Order Details</th>
-            </tr>
-            </thead>
-            <tr>
-                <th>#</th>
-                <th>Date of purchase</th>
-                <th>Total Price</th>
-                <th>Amount to pay</th>
-                <th>Partner name</th>
-                <th>Notes</th>
-            </tr>
-            <tr th:object="${order}">
-                <td th:text="*{id()}"></td>
-                <td th:text="*{#dates.format(dateOfPurchase(), 'yyyy-MM-dd')}"></td>
-                <td th:text="*{totalPrice()}"></td>
-                <td th:text="*{amountToPay()}"></td>
-                <td th:text="*{partner().name()}"></td>
-                <td th:text="*{notes()}"></td>
-            </tr>
-        </table>
-        <form action=# th:method="post" th:object="${requestDto}" th:action="@{/partner/pay-order}">
-            <input style="display: none" type="number" th:field="*{orderId}" th:value="${order.id()}">
-            <div class="input-group" th:object="${requestDto}">
-                <label for="date">Date of transaction:</label>
-                <input type="date" id="date" th:field="*{transactionDate}">
-            </div>
-            <div class="input-group">
-                <label for="paid">Paid:</label>
-                <div>
-                    <input type="number" id="paid" th:field="${requestDto.paymentAmount}" required>
-                    <span th:text="Ft"></span>
+    <div class="container">
+        <h1>Paying order</h1>
+        <div class="form-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th colspan="5">Order Details</th>
+                    </tr>
+                </thead>
+                <tr>
+                    <th>#</th>
+                    <th>Date of purchase</th>
+                    <th>Total Price</th>
+                    <th>Amount to pay</th>
+                    <th>Partner name</th>
+                    <th>Notes</th>
+                </tr>
+                <tr th:object="${order}">
+                    <td th:text="*{id()}"></td>
+                    <td th:text="*{#dates.format(dateOfPurchase(), 'yyyy-MM-dd')}"></td>
+                    <td th:text="*{totalPrice()}"></td>
+                    <td th:text="*{amountToPay()}"></td>
+                    <td th:text="*{partner().name()}"></td>
+                    <td th:text="*{notes()}"></td>
+                </tr>
+            </table>
+            <form action=# th:action="@{/partner/pay-order}" th:method="post" th:object="${requestDto}">
+                <input style="display: none" th:field="*{orderId}" th:value="${order.id()}" type="number">
+                <div class="input-group" th:object="${requestDto}">
+                    <label for="date">Date of transaction:</label>
+                    <input id="date" th:field="*{transactionDate}" type="date">
                 </div>
-            </div>
-            <div class="input-group">
-                <label for="note">Note:</label>
-                <div>
-                    <input type="text" id="note" th:field="${requestDto.note}">
+                <div class="input-group">
+                    <label for="paid">Paid:</label>
+                    <div>
+                        <input id="paid" required th:field="${requestDto.paymentAmount}" type="number">
+                        <span th:text="Ft"></span>
+                    </div>
                 </div>
-            </div>
-            <div class="button-container">
-                <button type="submit" class="button-primary">Confirm Payment</button>
-            </div>
-        </form>
+                <div class="button-container">
+                    <button class="button-primary" type="submit">Confirm Payment</button>
+                </div>
+            </form>
+        </div>
     </div>
-</div>
 </body>
 
 </html>
