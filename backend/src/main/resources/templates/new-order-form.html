@@ -3,38 +3,42 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" th:href="@{/styles.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/form-styles.css}">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <link rel="stylesheet" th:href="@{/styles.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/form-styles.css}" type="text/css">
     <title>Reed Catalog</title>
 </head>
 
 <body>
-<div class="container">
-    <div class="form-container">
-        <h1>Placing new order</h1>
-        <form th:method="'post'" th:object="${requestDto}" th:action="@{/partner/new-order}">
-            <div class="input-group">
-                <label for="partner">Partner:</label>
-                <select th:field="*{partnerId}" name="partnerId" id="partner">
-                    <option th:text="${partner.name()}" th:value="*{partnerId}"></option>
-                </select>
-            </div>
-            <div class="input-group">
-                <label for="price">Total Price:</label>
-                <div>
-                    <input type="number" id="price" th:field="*{totalPrice}" required>
-                    <span th:text="Ft"></span>
+    <div class="container">
+        <div class="form-container">
+            <h1>Placing a new order</h1>
+            <form th:action="@{/partner/new-order}" th:method="post" th:object="${requestDto}">
+                <div class="input-group">
+                    <label for="partner">Partner:</label>
+                    <select id="partner" name="partnerId" th:field="*{partnerId}">
+                        <option th:text="${partner.name()}" th:value="*{partnerId}"></option>
+                    </select>
                 </div>
-                <label for="notes">Notes: </label>
-                <input type="text" id="notes" th:field="*{notes}">
-            </div>
-            <div class="button-container">
-                <button type="submit" class="button-primary">Place Order</button>
-            </div>
-        </form>
+                <div class="input-group">
+                    <label for="date">Date of order:</label>
+                    <input id="date" th:field="*{dateOfPurchase}" th:value="*{dateOfPurchase}" type="date">
+                </div>
+                <div class="input-group">
+                    <label for="price">Total Price:</label>
+                    <div>
+                        <input id="price" required th:field="*{totalPrice}" type="number">
+                        <span th:text="Ft"></span>
+                    </div>
+                    <label for="notes">Notes: </label>
+                    <input id="notes" th:field="*{notes}" type="text">
+                </div>
+                <div class="button-container">
+                    <button class="button-primary" type="submit">Place Order</button>
+                </div>
+            </form>
+        </div>
     </div>
-</div>
 </body>
 
 </html>

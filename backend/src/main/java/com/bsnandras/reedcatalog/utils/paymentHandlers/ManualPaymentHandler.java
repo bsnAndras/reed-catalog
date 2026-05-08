@@ -9,8 +9,6 @@ import com.bsnandras.reedcatalog.services.database.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.util.Date;
-
 /**
  * Payment handler for manual payments.
  * No automatic processing (balance update or debt payment) is done upon any method calls.
@@ -58,7 +56,7 @@ public class ManualPaymentHandler implements PaymentHandler {
     @Override
     public Order placeNewOrder(Partner partner, NewOrderRequestDto requestDto) {
         Order newOrder = Order.builder()
-                .dateOfPurchase(new Date())
+                .dateOfPurchase(requestDto.dateOfPurchase())
                 .partner(partner)
                 .totalPrice(requestDto.totalPrice())
                 .amountToPay(requestDto.totalPrice())

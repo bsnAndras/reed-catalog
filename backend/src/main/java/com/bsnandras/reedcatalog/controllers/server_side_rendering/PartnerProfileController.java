@@ -32,6 +32,7 @@ public class PartnerProfileController {
         model.addAttribute("partner", PartnerLinkDTO.fromPartner(service.getPartner(partnerId)));
         model.addAttribute("requestDto", NewOrderRequestDto.builder()
                 .partnerId(partnerId)
+                .dateOfPurchase(new Date())
                 .build()
         );
 
