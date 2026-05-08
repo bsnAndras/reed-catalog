@@ -13,7 +13,7 @@
     <div class="container">
         <div class="form-container">
             <h1>Placing a new order</h1>
-            <form th:action="@{/partner/new-order}" th:method="post" th:object="${requestDto}">
+            <form th:action="@{/partner/new-order}" th:method="post" th:object="${newOrderForm}">
                 <div class="input-group">
                     <label for="partner">Partner:</label>
                     <select id="partner" name="partnerId" th:field="*{partnerId}">
@@ -21,8 +21,9 @@
                     </select>
                 </div>
                 <div class="input-group">
-                    <label for="date">Date of order:</label>
-                    <input id="date" th:field="*{dateOfPurchase}" th:value="*{dateOfPurchase}" type="date">
+                    <label for="date">Date of purchase:</label>
+                    <input id="date" th:field="*{dateOfPurchase}" th:value="*{dateOfPurchase}" type="datetime-local">
+                    <input id="timezone" th:field="*{timezone}" th:type="hidden"/>
                 </div>
                 <div class="input-group">
                     <label for="price">Total Price:</label>
@@ -41,4 +42,9 @@
     </div>
 </body>
 
+<script>
+    // Set user's timezone on page load
+    document.getElementById('timezone').value =
+        Intl.DateTimeFormat().resolvedOptions().timeZone;
+</script>
 </html>

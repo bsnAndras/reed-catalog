@@ -1,16 +1,21 @@
 package com.bsnandras.reedcatalog.dtos.newOrder;
 
-import lombok.Builder;
+import jakarta.validation.constraints.PositiveOrZero;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.time.Instant;
+import java.time.LocalDateTime;
 
-@Builder
-public record NewOrderRequestDto(
+public record NewOrderForm(
         Long partnerId,
+
         @DateTimeFormat(pattern = "yyyy-MM-dd")
-        Instant dateOfPurchase,
+        LocalDateTime dateOfPurchase,
+
+        String timezone,
+
+        @PositiveOrZero
         int totalPrice,
+
         String notes
 ) {
 }

@@ -4,11 +4,12 @@ import com.bsnandras.reedcatalog.dtos.links.PartnerLinkDTO;
 import com.bsnandras.reedcatalog.models.Log;
 import lombok.Builder;
 
-import java.util.Date;
+import java.time.Instant;
 
 /**
  * Data Transfer Object for log entries.
- * @param dateTime      The date and time of the log event. Originates from the primary key.
+ *
+ * @param dateTime      The date and time of the log event mapped to local time. Originates from the primary key.
  * @param event         A description of the log event.
  * @param eventId       The ID of the associated order / transaction.
  * @param partnerDTO    The partner associated with the event.
@@ -17,7 +18,7 @@ import java.util.Date;
  */
 @Builder
 public record LogDTO(
-        Date dateTime,
+        Instant dateTime,
         String event,
         Long eventId,
         PartnerLinkDTO partnerDTO,

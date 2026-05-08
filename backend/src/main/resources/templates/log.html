@@ -3,8 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" th:href="@{/styles.css}">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <link rel="stylesheet" th:href="@{/styles.css}" type="text/css">
     <title>Reed Catalog</title>
 </head>
 
@@ -28,12 +28,13 @@
                 <tbody>
                     <th:block th:each="log : ${logList}">
                         <tr th:object="${log}">
-                            <td th:text="*{dateTime}"></td>
+                            <td th:text="${#temporals.format(log.dateTime, 'yyyy.MM.dd. HH:mm:SS', timezone)}"></td>
                             <td th:text="*{event}"></td>
                             <td th:text="*{eventId}?*{eventId}:'-'"></td>
-                            <td th:if="*{partnerDTO()}"><a th:text="*{partnerDTO.name}"
-                                    th:href="|@{/partner/profile}?id=*{partnerDTO().id()}|"></a></td>
-                            <td th:if="!*{partnerDTO()}">-</td>
+                            <td th:if="*{partnerDTO}"><a th:href="|@{/partner/profile}?id=*{partnerDTO.id}|"
+                                                         th:text="*{partnerDTO.name}"></a>
+                            </td>
+                            <td th:if="!*{partnerDTO}">-</td>
                             <td th:text="*{moneyExchange}?*{moneyExchange}:'-'"></td>
                             <td th:text="*{actualBalance}"></td>
                         </tr>

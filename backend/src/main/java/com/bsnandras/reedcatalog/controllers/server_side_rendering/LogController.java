@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 
 import java.util.List;
 
@@ -15,10 +16,12 @@ public class LogController {
     private final LogService logService;
 
     @GetMapping({"/", "/log"})
-    public String getLog(Model model) {
+    public String getLog(Model model,
+                         @RequestHeader(value = "X-Timezone", required = false, defaultValue = "Europe/Budapest") String timezone) {
         List<LogDTO> logList = logService.showHistory();
 
         model.addAttribute("logList", logList);
+        model.addAttribute("timezone", timezone);
         return "log";
     }
 }

@@ -1,7 +1,7 @@
 package com.bsnandras.reedcatalog.utils.paymentHandlers;
 
 import com.bsnandras.reedcatalog.dtos.newOrder.NewOrderRequestDto;
-import com.bsnandras.reedcatalog.dtos.paymentReceived.PaymentRequestDto;
+import com.bsnandras.reedcatalog.dtos.payOrder.PaymentRequestDto;
 import com.bsnandras.reedcatalog.models.Order;
 import com.bsnandras.reedcatalog.models.Partner;
 import com.bsnandras.reedcatalog.repositories.PartnerRepository;
@@ -69,9 +69,10 @@ public class ManualPaymentHandler implements PaymentHandler {
     /**
      * Method to be called when a payment is made towards an existing order.
      * It automatically updates the partner's balance with excess money,
-     * but does nothing else. Subsequent payments must be handled manually.
+     * but does nothing else.
+     * Multiple payments must be handled one-by-one manually.
      *
-     * @param requestDto the payment request data, contains order ID and payment information (amount, date, notes)
+     * @param requestDto contains order ID and payment information (amount, date, notes)
      * @return the updated order after processing the payment
      */
     @Override

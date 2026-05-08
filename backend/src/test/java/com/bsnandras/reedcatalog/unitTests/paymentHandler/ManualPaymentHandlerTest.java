@@ -16,6 +16,8 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -126,7 +128,12 @@ public class ManualPaymentHandlerTest {
                 .amountToPay(1500)
                 .notes("Test order")
                 .build();
-        NewOrderRequestDto dto = new NewOrderRequestDto(partner.getId(), newOrder.getTotalPrice(), newOrder.getNotes());
+        NewOrderRequestDto dto = NewOrderRequestDto.builder()
+                .partnerId(partner.getId())
+                .dateOfPurchase(ZonedDateTime.now(ZoneId.of("Europe/Budapest")).toInstant())
+                .totalPrice(newOrder.getTotalPrice())
+                .notes(newOrder.getNotes())
+                .build();
 
         orders.add(newOrder);
         List<Order> expectedOrders = new ArrayList<>(orders);

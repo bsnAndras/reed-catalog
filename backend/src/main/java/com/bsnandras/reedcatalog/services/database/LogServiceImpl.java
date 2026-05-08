@@ -2,13 +2,12 @@ package com.bsnandras.reedcatalog.services.database;
 
 import com.bsnandras.reedcatalog.dtos.log.LogDTO;
 import com.bsnandras.reedcatalog.dtos.newOrder.NewOrderResponseDto;
-import com.bsnandras.reedcatalog.dtos.paymentReceived.PaymentResponseDto;
+import com.bsnandras.reedcatalog.dtos.payOrder.PaymentResponseDto;
 import com.bsnandras.reedcatalog.models.Log;
 import com.bsnandras.reedcatalog.repositories.LogRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -34,7 +33,7 @@ public class LogServiceImpl implements LogService {
     public Log newOrderLog(NewOrderResponseDto response) {
         Log lastLog = getLastLog();
         Log newLog = Log.builder()
-                .dateTime(new Date())
+                .dateTime(response.order().getDateOfPurchase())
                 .event(response.message())
                 .order(response.order())
                 .actualBalance(lastLog.getActualBalance())
@@ -47,7 +46,7 @@ public class LogServiceImpl implements LogService {
         Log lastLog = getLastLog();
         int paymentAmount = response.moneyPaid();
         Log newLog = Log.builder()
-                .dateTime(new Date()) //TODO: should give the time of payment reception
+                .dateTime(response.transactionDateTime())
                 .event(response.message())
                 .order(response.updatedOrder())
                 .moneyExchange(paymentAmount)

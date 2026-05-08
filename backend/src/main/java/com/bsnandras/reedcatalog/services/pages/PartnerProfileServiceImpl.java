@@ -4,8 +4,8 @@ import com.bsnandras.reedcatalog.dtos.OrderInfoDto;
 import com.bsnandras.reedcatalog.dtos.PartnerPageResponseDto;
 import com.bsnandras.reedcatalog.dtos.newOrder.NewOrderRequestDto;
 import com.bsnandras.reedcatalog.dtos.newOrder.NewOrderResponseDto;
-import com.bsnandras.reedcatalog.dtos.paymentReceived.PaymentRequestDto;
-import com.bsnandras.reedcatalog.dtos.paymentReceived.PaymentResponseDto;
+import com.bsnandras.reedcatalog.dtos.payOrder.PaymentRequestDto;
+import com.bsnandras.reedcatalog.dtos.payOrder.PaymentResponseDto;
 import com.bsnandras.reedcatalog.models.Order;
 import com.bsnandras.reedcatalog.models.Partner;
 import com.bsnandras.reedcatalog.repositories.OrderRepository;
@@ -95,6 +95,7 @@ public class PartnerProfileServiceImpl implements PartnerProfileService {
             responseMessage += String.format("\nExcess payment: %d Ft.", -remainingDebt);
 
         PaymentResponseDto responseDto = PaymentResponseDto.builder()
+                .transactionDateTime(requestDto.transactionDateTime())
                 .updatedOrder(order)
                 .message(responseMessage)
                 .moneyPaid(requestDto.paymentAmount())

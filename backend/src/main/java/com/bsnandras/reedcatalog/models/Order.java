@@ -6,7 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.time.Instant;
 import java.util.Set;
 
 @Data
@@ -20,14 +20,17 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    /**
+     * The date and time of the purchase (in UTC).
+     */
     @Column(name = "date_of_purchase", nullable = false)
     @Builder.Default
-    private Date dateOfPurchase = new Date();
+    private Instant dateOfPurchase = Instant.now();
 
     @Column(nullable = false)
     private int totalPrice;
 
-    @Column(name = "amount_to_pay",nullable = false)
+    @Column(name = "amount_to_pay", nullable = false)
     private int amountToPay;
 
     @Column(name = "notes")

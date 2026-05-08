@@ -8,8 +8,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 
+/**
+ * Represents a financial transaction between two partners.
+ */
 @Entity
 @Builder
 @Data
@@ -17,14 +20,21 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Table(name = "transactions")
 public class Transaction {
+
+    /**
+     * The timestamp of the transaction (in UTC).
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Builder.Default
-    LocalDateTime timestamp = LocalDateTime.now();
+    Instant timestamp = Instant.now();
 
     @NotNull
     int amount;
 
+    /**
+     * A brief description of the transaction (optional). The maximum length is 50 characters.
+     */
     @Max(value = 50, message = "Description cannot be longer than 50 characters")
     String description;
 

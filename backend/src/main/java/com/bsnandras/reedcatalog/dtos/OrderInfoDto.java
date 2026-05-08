@@ -4,19 +4,19 @@ import com.bsnandras.reedcatalog.dtos.links.PartnerLinkDTO;
 import com.bsnandras.reedcatalog.models.Order;
 import lombok.Builder;
 
-import java.util.Date;
+import java.time.Instant;
 
 @Builder
 public record OrderInfoDto(
         Long id,
-        Date dateOfPurchase,
+        Instant dateOfPurchase,
         int totalPrice,
         int amountToPay,
         String notes,
         PartnerLinkDTO partner
 ) {
     public static OrderInfoDto fromOrder(Order order) {
-        if(order == null) {
+        if (order == null) {
             return null;
         }
 

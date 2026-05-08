@@ -1,7 +1,7 @@
 package com.bsnandras.reedcatalog.utils.paymentHandlers;
 
 import com.bsnandras.reedcatalog.dtos.newOrder.NewOrderRequestDto;
-import com.bsnandras.reedcatalog.dtos.paymentReceived.PaymentRequestDto;
+import com.bsnandras.reedcatalog.dtos.payOrder.PaymentRequestDto;
 import com.bsnandras.reedcatalog.models.Order;
 import com.bsnandras.reedcatalog.models.Partner;
 

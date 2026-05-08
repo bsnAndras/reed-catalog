@@ -6,7 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.time.Instant;
 
 @Data
 @Builder
@@ -14,10 +14,14 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Log {
+
+    /**
+     * The date and time of the log event (in UTC). Serves as the primary key.
+     */
     @Id
     @Column(name = "date_time", nullable = false, unique = true, updatable = false)
     @Builder.Default
-    private Date dateTime = new Date();
+    private Instant dateTime = Instant.now();
 
     @Column(nullable = false)
     private String event;

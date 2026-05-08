@@ -28,24 +28,26 @@
                     <th>Notes</th>
                 </tr>
                 <tr th:object="${order}">
-                    <td th:text="*{id()}"></td>
-                    <td th:text="*{#dates.format(dateOfPurchase(), 'yyyy-MM-dd')}"></td>
-                    <td th:text="*{totalPrice()}"></td>
-                    <td th:text="*{amountToPay()}"></td>
-                    <td th:text="*{partner().name()}"></td>
-                    <td th:text="*{notes()}"></td>
+                    <td th:text="*{id}"></td>
+                    <td th:text="${#temporals.format(order.dateOfPurchase, 'yyyy-MM-dd', paymentForm.timezone)}"></td>
+                    <td th:text="*{totalPrice}"></td>
+                    <td th:text="*{amountToPay}"></td>
+                    <td th:text="*{partner.name}"></td>
+                    <td th:text="*{notes}"></td>
                 </tr>
             </table>
-            <form action=# th:action="@{/partner/pay-order}" th:method="post" th:object="${requestDto}">
-                <input style="display: none" th:field="*{orderId}" th:value="${order.id()}" type="number">
-                <div class="input-group" th:object="${requestDto}">
+            <form action=# th:action="@{/partner/pay-order}" th:method="post" th:object="${paymentForm}">
+                <input style="display: none" th:field="*{orderId}" th:value="*{orderId}" type="number">
+                <div class="input-group">
                     <label for="date">Date of transaction:</label>
-                    <input id="date" th:field="*{transactionDate}" type="date">
+                    <input id="date" th:field="*{transactionDateTime}" th:value="*{transactionDateTime}"
+                           type="datetime-local">
+                    <input id="timezone" th:field="*{timezone}" th:type="hidden"/>
                 </div>
                 <div class="input-group">
                     <label for="paid">Paid:</label>
                     <div>
-                        <input id="paid" required th:field="${requestDto.paymentAmount}" type="number">
+                        <input id="paid" required th:field="*{paymentAmount}" type="number">
                         <span th:text="Ft"></span>
                     </div>
                 </div>
@@ -57,4 +59,9 @@
     </div>
 </body>
 
+<script>
+    // Set user's timezone on page load
+    document.getElementById('timezone').value =
+        Intl.DateTimeFormat().resolvedOptions().timeZone;
+</script>
 </html>
