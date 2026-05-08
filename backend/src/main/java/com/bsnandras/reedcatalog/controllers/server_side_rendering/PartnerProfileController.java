@@ -47,6 +47,8 @@ public class PartnerProfileController {
         NewOrderRequestDto requestDto = NewOrderRequestDto.builder()
                 .partnerId(newOrderForm.partnerId())
                 .dateOfPurchase(ZonedDateTime.of(newOrderForm.dateOfPurchase(), ZoneId.of(newOrderForm.timezone())).toInstant())
+                .totalPrice(newOrderForm.totalPrice())
+                .notes(newOrderForm.notes())
                 .build();
 
         service.placeNewOrder(requestDto);

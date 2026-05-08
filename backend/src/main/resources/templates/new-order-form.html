@@ -22,7 +22,9 @@
                 </div>
                 <div class="input-group">
                     <label for="date">Date of purchase:</label>
-                    <input id="date" th:field="*{dateOfPurchase}" th:value="*{dateOfPurchase}" type="datetime-local">
+                    <input id="date" th:field="*{dateOfPurchase}"
+                           th:value="*{#temporals.format(dateOfPurchase, 'yyyy-MM-dd HH:mm')}"
+                           type="datetime-local">
                     <input id="timezone" th:field="*{timezone}" th:type="hidden"/>
                 </div>
                 <div class="input-group">

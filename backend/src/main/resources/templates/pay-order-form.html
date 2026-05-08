@@ -40,7 +40,8 @@
                 <input style="display: none" th:field="*{orderId}" th:value="*{orderId}" type="number">
                 <div class="input-group">
                     <label for="date">Date of transaction:</label>
-                    <input id="date" th:field="*{transactionDateTime}" th:value="*{transactionDateTime}"
+                    <input id="date" th:field="*{transactionDateTime}"
+                           th:value="*{#temporals.format(transactionDateTime, 'yyyy-MM-dd HH:mm')}"
                            type="datetime-local">
                     <input id="timezone" th:field="*{timezone}" th:type="hidden"/>
                 </div>
