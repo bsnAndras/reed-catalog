@@ -1,0 +1,18 @@
+@import "tailwindcss";
+@plugin "daisyui" {
+  themes: light --default, dark --prefersdark;
+}
+
+:root {
+  --color-primary: var(--color-amber-600);
+  --color-primary-hover: var(--color-red-700);
+  --color-primary-focus: var(--color-amber-700);
+  --color-primary-content: var(--color-amber-100);
+  
+  --color-secondary: var(--color-amber-950);
+  --color-secondary-focus: var(--color-amber-900);
+  --color-secondary-content: var(--color-amber-100);
+
+  --color-neutral: var(--color-yellow-900);
+  --color-neutral-content: var(--color-yellow-100);
+}
